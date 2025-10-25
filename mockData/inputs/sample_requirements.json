@@ -1,0 +1,42 @@
+[
+  {
+    "id": "REQ-001",
+    "text": "HIPAA compliance for patient interactions",
+    "category": "Security",
+    "priority": "High",
+    "source": "PRD-3.pdf",
+    "page_number": 1
+  },
+  {
+    "id": "REQ-002",
+    "text": "Maintain audit trails for all patient interactions",
+    "category": "Compliance",
+    "priority": "High",
+    "source": "PRD-3.pdf",
+    "page_number": 1
+  },
+  {
+    "id": "REQ-003",
+    "text": "Implement electronic signatures compliant with FDA 21 CFR Part 11",
+    "category": "Compliance",
+    "priority": "High",
+    "source": "PRD-3.pdf",
+    "page_number": 1
+  },
+  {
+    "id": "REQ-004",
+    "text": "Signature manifestations must include timestamp, user identity, and signing purpose",
+    "category": "Compliance",
+    "priority": "Medium",
+    "source": "PRD-3.pdf",
+    "page_number": 1
+  },
+  {
+    "id": "REQ-005",
+    "text": "Data encryption must meet SOC2 Type II standards",
+    "category": "Security",
+    "priority": "High",
+    "source": "PRD-3.pdf",
+    "page_number": 2
+  }
+]

@@ -1,0 +1,133 @@
+{
+  "status": "success",
+  "agent": "Document AI",
+  "source_document": {
+    "name": "PRD-3.pdf",
+    "id": "doc_20241220_143022",
+    "processed_at": "2024-12-20T14:30:22Z"
+  },
+  "chunks": [
+    {
+      "chunk_id": "chunk_001",
+      "chunk_type": "REQUIREMENT",
+      "page_number": 1,
+      "text": "TeleRx is a comprehensive telemedicine platform that enables healthcare providers to deliver remote care services. The system must ensure HIPAA compliance and maintain audit trails for all patient interactions.",
+      "confidence": 0.95,
+      "requirement_entities": [
+        {
+          "id": "REQ-001",
+          "confidence": 0.95,
+          "page_number": 1,
+          "text": "HIPAA compliance for patient interactions"
+        },
+        {
+          "id": "REQ-002", 
+          "confidence": 0.92,
+          "page_number": 1,
+          "text": "Maintain audit trails for all patient interactions"
+        }
+      ],
+      "compliance_entities": [
+        {
+          "name": "HIPAA §164.312(a)(1) - Access Control",
+          "confidence": 0.88
+        }
+      ],
+      "bounding_box": {
+        "x_min": 0.1,
+        "y_min": 0.2,
+        "x_max": 0.9,
+        "y_max": 0.3
+      },
+      "source": "PRD-3.pdf"
+    },
+    {
+      "chunk_id": "chunk_002",
+      "chunk_type": "REQUIREMENT", 
+      "page_number": 1,
+      "text": "The system shall implement electronic signatures that comply with FDA 21 CFR Part 11 requirements. All signature manifestations must include timestamp, user identity, and signing purpose.",
+      "confidence": 0.94,
+      "requirement_entities": [
+        {
+          "id": "REQ-003",
+          "confidence": 0.94,
+          "page_number": 1,
+          "text": "Implement electronic signatures compliant with FDA 21 CFR Part 11"
+        },
+        {
+          "id": "REQ-004",
+          "confidence": 0.91,
+          "page_number": 1,
+          "text": "Signature manifestations must include timestamp, user identity, and signing purpose"
+        }
+      ],
+      "compliance_entities": [
+        {
+          "name": "FDA 21 CFR Part 11 - Electronic Signatures",
+          "confidence": 0.89
+        }
+      ],
+      "bounding_box": {
+        "x_min": 0.1,
+        "y_min": 0.4,
+        "x_max": 0.9,
+        "y_max": 0.5
+      },
+      "source": "PRD-3.pdf"
+    },
+    {
+      "chunk_id": "chunk_003",
+      "chunk_type": "REQUIREMENT",
+      "page_number": 2,
+      "text": "Data encryption must meet SOC2 Type II standards and GDPR requirements for data protection. All personal health information (PHI) must be encrypted at rest and in transit.",
+      "confidence": 0.93,
+      "requirement_entities": [
+        {
+          "id": "REQ-005",
+          "confidence": 0.93,
+          "page_number": 2,
+          "text": "Data encryption must meet SOC2 Type II standards"
+        },
+        {
+          "id": "REQ-006",
+          "confidence": 0.90,
+          "page_number": 2,
+          "text": "GDPR compliance for data protection"
+        },
+        {
+          "id": "REQ-007",
+          "confidence": 0.92,
+          "page_number": 2,
+          "text": "PHI must be encrypted at rest and in transit"
+        }
+      ],
+      "compliance_entities": [
+        {
+          "name": "SOC2 Type II - Data Encryption",
+          "confidence": 0.87
+        },
+        {
+          "name": "GDPR Article 32 - Data Protection",
+          "confidence": 0.85
+        }
+      ],
+      "bounding_box": {
+        "x_min": 0.1,
+        "y_min": 0.2,
+        "x_max": 0.9,
+        "y_max": 0.3
+      },
+      "source": "PRD-3.pdf"
+    }
+  ],
+  "metadata": {
+    "total_pages": 2,
+    "total_chunks": 3,
+    "total_detected_entities": 11,
+    "text_length": 1200,
+    "has_entities": true,
+    "compliance_standards_found": 4,
+    "requirements_found": 7,
+    "total_compliance_links": 4
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "project_id": "poc-genai-hacks",
+  "location": "us",
+  "processor_id": "e7f52140009fdda2",
+  "rag_corpus_name": "projects/poc-genai-hacks/locations/europe-west3/ragCorpora/6917529027641081856",
+  "rag_location": "europe-west3",
+  "gemini_location": "us-central1",
+  "mock_mode": true,
+  "debug_mode": true
+}

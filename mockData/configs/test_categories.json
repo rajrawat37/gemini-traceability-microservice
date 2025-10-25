@@ -1,0 +1,27 @@
+{
+  "Compliance Tests": {
+    "icon": "shield-check",
+    "color": "#4CAF50",
+    "description": "Tests for regulatory compliance"
+  },
+  "Security Tests": {
+    "icon": "lock",
+    "color": "#F44336",
+    "description": "Tests for security requirements"
+  },
+  "Functional Tests": {
+    "icon": "cog",
+    "color": "#2196F3",
+    "description": "Tests for functional requirements"
+  },
+  "Performance Tests": {
+    "icon": "speedometer",
+    "color": "#FF9800",
+    "description": "Tests for performance requirements"
+  },
+  "Integration Tests": {
+    "icon": "link",
+    "color": "#9C27B0",
+    "description": "Tests for system integration"
+  }
+}

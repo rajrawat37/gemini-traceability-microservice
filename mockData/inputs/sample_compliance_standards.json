@@ -1,0 +1,26 @@
+[
+  {
+    "name": "HIPAA §164.312(a)(1) - Access Control",
+    "confidence": 0.88,
+    "category": "Healthcare",
+    "description": "Access control requirements for healthcare data"
+  },
+  {
+    "name": "FDA 21 CFR Part 11 - Electronic Signatures",
+    "confidence": 0.89,
+    "category": "Pharmaceutical",
+    "description": "Electronic signature requirements for FDA compliance"
+  },
+  {
+    "name": "SOC2 Type II - Data Encryption",
+    "confidence": 0.87,
+    "category": "Security",
+    "description": "Data encryption standards for service organizations"
+  },
+  {
+    "name": "GDPR Article 32 - Data Protection",
+    "confidence": 0.85,
+    "category": "Privacy",
+    "description": "Data protection requirements under GDPR"
+  }
+]

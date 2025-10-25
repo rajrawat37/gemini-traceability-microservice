@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC_001",
+    "title": "Verify REQ-001 compliance",
+    "description": "Test compliance for requirement: HIPAA compliance for patient interactions",
+    "category": "Compliance Tests",
+    "priority": "High",
+    "derived_from": "REQ-001",
+    "expected_result": "Compliance verified",
+    "compliance_standards": ["HIPAA §164.312(a)(1) - Access Control", "FDA 21 CFR Part 11 - Electronic Signatures"]
+  },
+  {
+    "id": "TC_002",
+    "title": "Verify REQ-002 compliance",
+    "description": "Test compliance for requirement: Maintain audit trails for all patient interactions",
+    "category": "Compliance Tests",
+    "priority": "High",
+    "derived_from": "REQ-002",
+    "expected_result": "Compliance verified",
+    "compliance_standards": ["HIPAA §164.312(a)(1) - Access Control", "SOC2 Type II - Data Encryption"]
+  },
+  {
+    "id": "TC_003",
+    "title": "Verify REQ-003 compliance",
+    "description": "Test compliance for requirement: Implement electronic signatures compliant with FDA 21 CFR Part 11",
+    "category": "Compliance Tests",
+    "priority": "High",
+    "derived_from": "REQ-003",
+    "expected_result": "Compliance verified",
+    "compliance_standards": ["FDA 21 CFR Part 11 - Electronic Signatures", "GDPR Article 32 - Data Protection"]
+  },
+  {
+    "id": "TC_004",
+    "title": "Verify REQ-004 compliance",
+    "description": "Test compliance for requirement: Signature manifestations must include timestamp, user identity, and signing purpose",
+    "category": "Compliance Tests",
+    "priority": "High",
+    "derived_from": "REQ-004",
+    "expected_result": "Compliance verified",
+    "compliance_standards": ["FDA 21 CFR Part 11 - Electronic Signatures", "SOC2 Type II - Data Encryption"]
+  },
+  {
+    "id": "TC_005",
+    "title": "Verify REQ-005 compliance",
+    "description": "Test compliance for requirement: Data encryption must meet SOC2 Type II standards",
+    "category": "Compliance Tests",
+    "priority": "High",
+    "derived_from": "REQ-005",
+    "expected_result": "Compliance verified",
+    "compliance_standards": ["SOC2 Type II - Data Encryption", "GDPR Article 32 - Data Protection"]
+  }
+]
