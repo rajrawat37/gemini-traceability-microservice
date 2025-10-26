@@ -25,7 +25,7 @@ import uvicorn
 from modules.document_ai import extract_traceable_docai
 from modules.dlp_masking import mask_chunks_with_dlp
 from modules.rag_enhancement import query_rag_from_chunks
-from modules.knowledge_graph import build_knowledge_graph_from_rag, analyze_test_coverage, create_flow_visualization
+from modules.knowledge_graph import build_knowledge_graph_from_rag, analyze_test_coverage, create_flow_visualization, generate_audit_report
 from modules.test_generation import generate_test_cases_with_rag_context, enrich_test_cases_for_ui
 
 app = FastAPI(
@@ -605,7 +605,7 @@ async def generate_ui_tests_endpoint(
 ):
     """
     🚀 COMPLETE UI PIPELINE: DocAI → DLP → RAG → KG → Gemini with enhanced traceability
-    
+
     Upload PDF and get the complete compliance traceability pipeline with:
     1. Extract text and entities with Document AI (traceable chunks)
     2. Mask PII with DLP (GDPR-compliant)
@@ -615,13 +615,21 @@ async def generate_ui_tests_endpoint(
     6. Enhanced traceability with KG mapping
     7. Test coverage analysis
     8. Flow visualization (requirement → test → compliance)
-    
+    9. Compliance dashboard data (audit readiness, gaps, standards coverage)
+
     Args:
         file: PDF file to process
         gdpr_mode: If True (default), performs PII masking
-    
+
     Returns:
-        Complete pipeline output with enhanced traceability and KG integration
+        Complete pipeline output with:
+        - test_suite: Test categories, statistics, PDF outline
+        - knowledge_graph: Nodes, edges, metadata
+        - flow_visualization: Requirement → test → compliance mapping
+        - compliance_summary: Quick stats for home screen card (coverage, status, top 3 standards)
+        - compliance_dashboard: Full dashboard data (overview, gaps, standards coverage, audit report)
+        - pipeline_metadata: Step-by-step execution status
+        - enhanced_traceability: KG utilization, coverage score, flow metrics
     """
     if not file.filename.endswith('.pdf'):
         raise HTTPException(status_code=400, detail="Only PDF files are supported")
@@ -632,7 +640,7 @@ async def generate_ui_tests_endpoint(
         processor_id = os.getenv("PROCESSOR_ID", "e7f52140009fdda2")
         rag_corpus_name = os.getenv("RAG_CORPUS_NAME", "projects/poc-genai-hacks/locations/europe-west3/ragCorpora/6917529027641081856")
         rag_location = os.getenv("RAG_LOCATION", "europe-west3")
-        gemini_location = os.getenv("GEMINI_LOCATION", "us-central1")
+        gemini_location = os.getenv("GEMINI_LOCATION", "global")
         
         print(f"\n{'='*80}")
         print(f"🚀 STARTING COMPLETE UI PIPELINE")
@@ -642,6 +650,7 @@ async def generate_ui_tests_endpoint(
         print(f"🏗️  Project: {project_id}")
         print(f"🔍 RAG Corpus: {rag_corpus_name}")
         print(f"🤖 Gemini Location: {gemini_location}")
+        print(f"⏱️  Expected time: 25-40 seconds for complete pipeline")
         
         # Read file content
         content = await file.read()
@@ -678,11 +687,163 @@ async def generate_ui_tests_endpoint(
         # Step 7: Flow visualization
         print(f"📊 Step 7: Flow visualization...")
         flow_visualization = create_flow_visualization(ui_result, kg_result)
-        
+
+        # Step 8: Generate audit report and compliance dashboard data
+        print(f"📋 Step 8: Generating compliance dashboard data...")
+        audit_report = generate_audit_report(kg_result, ui_result.get("test_categories", []), rag_result)
+
+        # Extract compliance metrics for dashboard
+        coverage_analysis = ui_result.get("coverage_analysis", {})
+        coverage_score = coverage_analysis.get("coverage_score", 0)
+
+        # Calculate status indicators based on coverage score
+        if coverage_score >= 90:
+            status = "COMPLIANT"
+            status_icon = "🟢"
+            status_color = "#4CAF50"  # Green
+        elif coverage_score >= 70:
+            status = "READY_WITH_GAPS"
+            status_icon = "🟡"
+            status_color = "#FFA500"  # Orange
+        else:
+            status = "AT_RISK"
+            status_icon = "🔴"
+            status_color = "#F44336"  # Red
+
+        # Get all compliance standards from KG
+        kg_nodes = kg_result.get("nodes", [])
+        kg_edges = kg_result.get("edges", [])
+        compliance_standards = [n for n in kg_nodes if n.get("type") == "COMPLIANCE_STANDARD"]
+        requirements = [n for n in kg_nodes if n.get("type") == "REQUIREMENT"]
+
+        # Calculate coverage for each standard
+        standards_coverage_list = []
+        for comp in compliance_standards:
+            comp_id = comp.get("id")
+            comp_name = comp.get("title", "Unknown")
+            comp_type = comp.get("standard_type", "UNKNOWN")
+
+            # Find requirements linked to this standard
+            reqs_for_standard = [edge.get("from") for edge in kg_edges if edge.get("to") == comp_id]
+            total_reqs = len(reqs_for_standard)
+
+            # Count verified requirements (those with test cases)
+            verified_reqs = 0
+            all_test_cases = []
+            for category in ui_result.get("test_categories", []):
+                all_test_cases.extend(category.get("test_cases", []))
+
+            for req_id in reqs_for_standard:
+                has_tests = any(test.get("derived_from") == req_id for test in all_test_cases)
+                if has_tests:
+                    verified_reqs += 1
+
+            coverage_pct = (verified_reqs / total_reqs * 100) if total_reqs > 0 else 0
+
+            # Assign status and color
+            if coverage_pct == 100:
+                std_status = "✅"
+                std_color = "#4CAF50"
+                std_text_status = "COMPLIANT"
+            elif coverage_pct >= 70:
+                std_status = "🟡"
+                std_color = "#FFA500"
+                std_text_status = "PARTIAL"
+            else:
+                std_status = "🔴"
+                std_color = "#F44336"
+                std_text_status = "AT_RISK"
+
+            standards_coverage_list.append({
+                "standard_id": comp_id,
+                "standard_name": comp_name,
+                "standard_type": comp_type,
+                "coverage": round(coverage_pct, 1),
+                "status": std_status,
+                "status_text": std_text_status,
+                "color": std_color,
+                "requirements_total": total_reqs,
+                "requirements_verified": verified_reqs,
+                "requirements_unverified": total_reqs - verified_reqs
+            })
+
+        # Sort by coverage percentage (descending)
+        standards_coverage_list.sort(key=lambda x: x["coverage"], reverse=True)
+
+        # Get top 3 standards for summary card
+        top_3_standards = standards_coverage_list[:3]
+
+        # Extract gaps from coverage analysis
+        coverage_gaps = coverage_analysis.get("coverage_gaps", [])
+        critical_gaps_count = len([g for g in coverage_gaps if g.get("severity") == "high"])
+
+        # Build gap objects with PDF locations
+        gaps_with_locations = []
+        for gap in coverage_gaps:
+            gap_type = gap.get("type", "unknown")
+
+            # Try to extract requirement ID from gap message
+            gap_message = gap.get("message", "")
+
+            gaps_with_locations.append({
+                "gap_id": f"GAP-{len(gaps_with_locations) + 1:03d}",
+                "severity": gap.get("severity", "medium").upper(),
+                "type": gap_type,
+                "message": gap_message,
+                "issue": gap_message,
+                "recommendation": "Review and add test cases for missing coverage"
+            })
+
+        # Build compliance_summary for home screen card
+        compliance_summary = {
+            "coverage_score": round(coverage_score, 1),
+            "status": status,
+            "status_icon": status_icon,
+            "status_color": status_color,
+            "quick_stats": {
+                "total_requirements": len(requirements),
+                "requirements_tested": coverage_analysis.get("total_requirements", 0),
+                "requirements_untested": len(requirements) - coverage_analysis.get("total_requirements", 0),
+                "total_tests": ui_result.get("statistics", {}).get("total_tests", 0),
+                "critical_gaps": critical_gaps_count
+            },
+            "top_standards": [
+                {
+                    "name": std["standard_name"],
+                    "coverage": std["coverage"],
+                    "status": std["status"],
+                    "color": std["color"]
+                }
+                for std in top_3_standards
+            ]
+        }
+
+        # Build compliance_dashboard for full dashboard tab
+        compliance_dashboard = {
+            "overview": {
+                "audit_readiness": status,
+                "coverage_score": round(coverage_score, 1),
+                "total_requirements": len(requirements),
+                "requirements_tested": coverage_analysis.get("total_requirements", 0),
+                "requirements_untested": len(requirements) - coverage_analysis.get("total_requirements", 0),
+                "total_tests": ui_result.get("statistics", {}).get("total_tests", 0),
+                "total_compliance_standards": len(compliance_standards)
+            },
+            "gaps": gaps_with_locations,
+            "standards_coverage": standards_coverage_list,
+            "audit_report": audit_report
+        }
+
+        print(f"✅ Compliance dashboard data generated")
+        print(f"   Coverage Score: {coverage_score}%")
+        print(f"   Status: {status} {status_icon}")
+        print(f"   Standards Tracked: {len(standards_coverage_list)}")
+        print(f"   Critical Gaps: {critical_gaps_count}")
+
         print(f"\n{'='*80}")
         print(f"✅ UI-READY TEST GENERATION COMPLETE")
         print(f"{'='*80}\n")
-        
+
         response_data = {
             "status": "success",
             "agent": "Complete Test Generation Pipeline with UI Integration",
@@ -705,7 +866,13 @@ async def generate_ui_tests_endpoint(
             
             # 🚀 NEW: Flow visualization (requirement → test → compliance)
             "flow_visualization": flow_visualization,
-            
+
+            # 🎯 NEW: Compliance Summary (for home screen card)
+            "compliance_summary": compliance_summary,
+
+            # 📊 NEW: Compliance Dashboard (for dashboard tab)
+            "compliance_dashboard": compliance_dashboard,
+
             # Pipeline metadata
             "pipeline_metadata": {
                 "step_1_docai": {
@@ -742,6 +909,13 @@ async def generate_ui_tests_endpoint(
                     "status": flow_visualization.get("status", "unknown"),
                     "requirements_mapped": flow_visualization.get("total_requirements", 0),
                     "compliance_standards_mapped": flow_visualization.get("total_compliance_standards", 0)
+                },
+                "step_8_compliance": {
+                    "status": "success",
+                    "audit_report_generated": audit_report.get("status", "unknown") == "success",
+                    "compliance_standards_tracked": len(standards_coverage_list),
+                    "coverage_score": coverage_score,
+                    "audit_readiness": status
                 }
             },
             

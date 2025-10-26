@@ -3,6 +3,7 @@ Test Generation Module
 Handles test case generation using Gemini with RAG context
 """
 
+import os
 import threading
 from typing import Dict, Any, List
 from vertexai.preview.generative_models import GenerativeModel
@@ -53,8 +54,10 @@ def generate_test_cases_with_rag_context(rag_output: dict, project_id: str, gemi
         # Initialize Vertex AI
         vertexai.init(project=project_id, location=gemini_location)
         
-        # Get cached model
-        model = get_cached_model("gemini-1.5-pro")
+        # Get cached model - use environment variable or default
+        model_name = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-001")
+        print(f"🤖 Using Gemini model: {model_name}")
+        model = get_cached_model(model_name)
         if not model:
             return {
                 "status": "error",
@@ -64,10 +67,13 @@ def generate_test_cases_with_rag_context(rag_output: dict, project_id: str, gemi
             }
 
         context_docs = rag_output.get("context_docs", [])
+        print(f"📚 RAG Context: {len(context_docs)} context documents available")
+
         if not context_docs:
+            print(f"❌ No context documents found - cannot generate tests")
             return {
                 "status": "error",
-                "agent": "Gemini-Test-Generator", 
+                "agent": "Gemini-Test-Generator",
                 "error": "No context documents available for test generation",
                 "test_cases": []
             }
@@ -77,6 +83,7 @@ def generate_test_cases_with_rag_context(rag_output: dict, project_id: str, gemi
         compliance_standards = []
         compliance_context = []
 
+        print(f"🔍 Extracting requirements and compliance from context docs...")
         for doc in context_docs:
             page_number = doc.get("page_number", 1)
             chunk_id = doc.get("chunk_id", "unknown")
@@ -85,9 +92,11 @@ def generate_test_cases_with_rag_context(rag_output: dict, project_id: str, gemi
             # Extract requirements with traceability data
             req_entities = doc.get("requirement_entities", [])
             for req in req_entities:
+                # 🚀 Use original_text for Gemini quality (not masked_text)
+                req_text = doc.get("original_text", doc.get("text", ""))
                 requirements.append({
                     "id": req.get("id", "Unknown"),
-                    "text": doc.get("text", "")[:200] + "...",
+                    "text": req_text[:200] + ("..." if len(req_text) > 200 else ""),
                     "page": page_number,
                     "chunk_id": chunk_id,
                     "bounding_box": bounding_box,
@@ -103,6 +112,27 @@ def generate_test_cases_with_rag_context(rag_output: dict, project_id: str, gemi
                     "source": policy.get("source", "rag_corpus")
                 })
                 compliance_context.append(f"- {policy.get('policy_name', 'Unknown')}: {policy.get('policy_text', '')[:100]}...")
+
+        print(f"📊 Extraction complete:")
+        print(f"   - Requirements: {len(requirements)}")
+        print(f"   - Compliance standards: {len(compliance_standards)}")
+        print(f"   - Compliance context items: {len(compliance_context)}")
+
+        # 🚀 FALLBACK: If no requirements extracted from context_docs, extract from KG nodes
+        if not requirements and kg_output and kg_output.get("status") == "success":
+            print(f"⚠️  No requirements in context_docs, extracting from KG nodes...")
+            kg_nodes = kg_output.get("nodes", [])
+            for node in kg_nodes:
+                if node.get("type") == "REQUIREMENT":
+                    requirements.append({
+                        "id": node.get("id", "Unknown"),
+                        "text": node.get("text", ""),
+                        "page": node.get("page_number", 1),
+                        "chunk_id": f"kg_node_{node.get('id')}",
+                        "bounding_box": {},
+                        "confidence": node.get("confidence", 0.7)
+                    })
+            print(f"✅ Extracted {len(requirements)} requirements from KG nodes")
 
         # Extract KG relationships for enhanced context
         kg_relationships = []
@@ -127,7 +157,29 @@ def generate_test_cases_with_rag_context(rag_output: dict, project_id: str, gemi
                     })
             print(f"🔗 KG: Found {len(kg_relationships)} relationships for test generation")
 
+        # Critical check: If no requirements found, this will cause Gemini to fail
+        if not requirements:
+            print(f"⚠️  WARNING: No requirements extracted from context_docs!")
+            print(f"⚠️  This will cause Gemini prompt to have empty REQUIREMENTS section")
+            print(f"⚠️  Using fallback test generation...")
+            return {
+                "status": "success",
+                "agent": "Gemini-Test-Generator (No Requirements)",
+                "test_cases": generate_fallback_tests([], compliance_standards),
+                "metadata": {
+                    "total_tests": 5,
+                    "fallback_mode": True,
+                    "model_used": "gemini-1.5-pro",
+                    "error": "No requirements extracted from context_docs - cannot generate meaningful tests"
+                }
+            }
+
         # Build comprehensive prompt with KG context
+        print(f"🎯 Building Gemini prompt with:")
+        print(f"   - Requirements: {len(requirements)}")
+        print(f"   - Compliance standards: {len(compliance_standards)}")
+        print(f"   - KG relationships: {len(kg_relationships)}")
+
         prompt = f"""You are a QA expert generating test cases for healthcare compliance software.
 
 Based on the following requirements, compliance standards, and KNOWLEDGE GRAPH RELATIONSHIPS, generate test cases organized by categories.
@@ -147,7 +199,7 @@ RICH COMPLIANCE CONTEXT:
 🔗 KG RELATIONSHIP DETAILS:
 {chr(10).join([f"- {r.get('relationship_type')}: {r.get('from_text')} → {r.get('to_title')}" for r in kg_relationships])}
 
-Generate test cases in these categories (MINIMUM 1 test per category):
+Generate test cases in these categories (2-3 tests per category for comprehensive coverage):
 
 1. Security Tests - Authentication, authorization, data encryption, access control
 2. Compliance Tests - GDPR, HIPAA, FDA compliance validation
@@ -155,7 +207,13 @@ Generate test cases in these categories (MINIMUM 1 test per category):
 4. Integration Tests - API integration, third-party services, data flow
 5. Performance Tests - Load testing, response times, scalability
 
-IMPORTANT: Generate AT LEAST one test case for EACH category above (5 categories minimum).
+CRITICAL REQUIREMENT COVERAGE RULE:
+- You MUST generate AT LEAST ONE test case for EVERY requirement listed above
+- Each requirement ID (REQ-001, REQ-002, etc.) must appear in at least one test case's "derived_from" field
+- Distribute test cases across all requirements to ensure complete coverage
+- Example: If there are 6 requirements, ensure all 6 requirement IDs are used in the "derived_from" field across your test cases
+
+IMPORTANT: Generate 2-3 test cases for EACH category above. Aim for a total of 10-15 test cases across all 5 categories for comprehensive coverage.
 
 For each test case, provide:
 - Test ID (TC_XXX format)
@@ -201,14 +259,30 @@ Return as JSON with this structure:
 }}"""
 
         # Generate test cases
+        print(f"🤖 Calling Gemini model for test generation...")
         response = model.generate_content(prompt)
         test_cases = []
 
         if response and response.text:
+            print(f"✅ Gemini response received ({len(response.text)} characters)")
+            print(f"📝 First 500 chars of response: {response.text[:500]}")
+
             try:
                 import json
-                result = json.loads(response.text)
+                # Clean response text (remove markdown code blocks if present)
+                response_text = response.text.strip()
+                if response_text.startswith("```json"):
+                    response_text = response_text[7:]  # Remove ```json
+                if response_text.startswith("```"):
+                    response_text = response_text[3:]  # Remove ```
+                if response_text.endswith("```"):
+                    response_text = response_text[:-3]  # Remove trailing ```
+                response_text = response_text.strip()
+
+                print(f"🔍 Parsing JSON response...")
+                result = json.loads(response_text)
                 result_cases = result.get("test_cases", [])
+                print(f"✅ Successfully parsed {len(result_cases)} test cases from Gemini")
 
                 # Extract and attach traceability info from Gemini response
                 for result_case in result_cases:
@@ -226,12 +300,17 @@ Return as JSON with this structure:
 
                     test_cases.append(test_case)
 
-            except json.JSONDecodeError:
+            except json.JSONDecodeError as je:
+                print(f"❌ JSON parsing failed: {str(je)}")
+                print(f"📋 Response text that failed to parse: {response.text[:1000]}")
                 # Fallback: parse text response
                 test_cases = parse_text_response(response.text)
+                print(f"⚠️  Using text parser fallback, got {len(test_cases)} test cases")
         else:
+            print(f"❌ No response from Gemini model")
             # Generate fallback test cases
             test_cases = generate_fallback_tests(requirements, compliance_standards)
+            print(f"⚠️  Using fallback test generator, created {len(test_cases)} test cases")
 
         return {
             "status": "success",
@@ -242,17 +321,22 @@ Return as JSON with this structure:
                 "requirements_covered": len(requirements),
                 "compliance_standards_covered": len(compliance_standards),
                 "kg_relationships_used": len(kg_relationships),
-                "model_used": "gemini-1.5-pro"
+                "model_used": model_name
             }
         }
         
     except Exception as e:
+        import traceback
+        error_trace = traceback.format_exc()
         print(f"❌ Gemini test generation error: {str(e)}")
+        print(f"📋 Full error traceback:\n{error_trace}")
         print(f"📋 Generating fallback placeholder test cases...")
-        
+
         # Generate fallback test cases from RAG context
         fallback_tests = []
-        for i, doc in enumerate(context_docs[:5]):  # Limit to 5 fallback tests
+        # Safely get context_docs from rag_output
+        safe_context_docs = rag_output.get("context_docs", []) if rag_output else []
+        for i, doc in enumerate(safe_context_docs[:5]):  # Limit to 5 fallback tests
             fallback_tests.append({
                 "id": f"TC_{i+1:03d}",
                 "title": f"Verify compliance for requirement {i+1}",
@@ -263,7 +347,7 @@ Return as JSON with this structure:
                 "expected_result": "Compliance verified",
                 "compliance_standards": ["HIPAA", "FDA"]
             })
-        
+
         return {
             "status": "success",
             "agent": "Gemini-Test-Generator (Fallback)",
@@ -271,8 +355,9 @@ Return as JSON with this structure:
             "metadata": {
                 "total_tests": len(fallback_tests),
                 "fallback_mode": True,
-                "model_used": "gemini-1.5-pro",
-                "error": str(e)
+                "model_used": os.getenv("GEMINI_MODEL", "gemini-2.0-flash-001"),
+                "error": str(e),
+                "error_trace": error_trace
             }
         }
 
@@ -367,26 +452,48 @@ def enrich_test_cases_for_ui(generated_tests: list, kg_output: dict, rag_output:
                 "error": "No test cases to enrich"
             }
 
-        # Build requirements map with full traceability data from RAG chunks
+        # Build requirements map with full traceability data
+        # Priority: KG nodes (most authoritative) → context_docs → chunks
         requirements_map = {}
 
-        # Try context_docs first (preferred source)
-        context_docs = rag_output.get("context_docs", [])
-        for doc in context_docs:
-            req_entities = doc.get("requirement_entities", [])
-            for req in req_entities:
-                req_id = req.get("id")
-                if req_id:
-                    requirements_map[req_id] = {
-                        "id": req_id,
-                        "text": req.get("text", ""),
-                        "page_number": doc.get("page_number"),
-                        "bounding_box": doc.get("bounding_box", {}),
-                        "chunk_id": doc.get("chunk_id", ""),
-                        "confidence": req.get("confidence", 0.0)
-                    }
+        # 🚀 PRIMARY SOURCE: Knowledge Graph nodes (most reliable)
+        if kg_output and kg_output.get("status") == "success":
+            kg_nodes = kg_output.get("nodes", [])
+            for node in kg_nodes:
+                if node.get("type") == "REQUIREMENT":
+                    req_id = node.get("id")
+                    if req_id:
+                        requirements_map[req_id] = {
+                            "id": req_id,
+                            "text": node.get("text", ""),
+                            "page_number": node.get("page_number"),
+                            "bounding_box": {},  # KG nodes don't have bounding boxes
+                            "chunk_id": f"kg_node_{req_id}",
+                            "confidence": node.get("confidence", 0.7)
+                        }
+            if requirements_map:
+                print(f"✅ Built requirements map from KG nodes: {len(requirements_map)} requirements")
 
-        # Fallback: Use chunks with detected_requirements if context_docs didn't have requirement_entities
+        # FALLBACK 1: Try context_docs if KG didn't provide requirements
+        if not requirements_map:
+            context_docs = rag_output.get("context_docs", [])
+            for doc in context_docs:
+                req_entities = doc.get("requirement_entities", [])
+                for req in req_entities:
+                    req_id = req.get("id")
+                    if req_id:
+                        requirements_map[req_id] = {
+                            "id": req_id,
+                            "text": req.get("text", ""),
+                            "page_number": doc.get("page_number"),
+                            "bounding_box": doc.get("bounding_box", {}),
+                            "chunk_id": doc.get("chunk_id", ""),
+                            "confidence": req.get("confidence", 0.0)
+                        }
+            if requirements_map:
+                print(f"🔄 Built requirements map from context_docs: {len(requirements_map)} requirements")
+
+        # FALLBACK 2: Use chunks with detected_requirements as last resort
         if not requirements_map:
             chunks = rag_output.get("chunks", [])
             for chunk in chunks:
@@ -402,7 +509,13 @@ def enrich_test_cases_for_ui(generated_tests: list, kg_output: dict, rag_output:
                             "chunk_id": chunk.get("chunk_id", ""),
                             "confidence": req.get("confidence", 0.0)
                         }
-            print(f"🔄 Built requirements map from chunks: {len(requirements_map)} requirements")
+            if requirements_map:
+                print(f"🔄 Built requirements map from chunks: {len(requirements_map)} requirements")
+
+        # Debug: Print all requirements in the map
+        print(f"📋 Requirements map contains: {list(requirements_map.keys())}")
+        for req_id, req_data in requirements_map.items():
+            print(f"   - {req_id}: {req_data.get('text', '')[:50]}... (page {req_data.get('page_number')})")
 
         # Organize tests by category
         test_categories = {}
@@ -419,6 +532,12 @@ def enrich_test_cases_for_ui(generated_tests: list, kg_output: dict, rag_output:
             # Get full requirement data from map
             derived_from = test.get("derived_from", "")
             related_req = requirements_map.get(derived_from, {"id": derived_from})
+
+            # Debug logging for traceability mapping
+            if derived_from and derived_from in requirements_map:
+                print(f"✅ Mapped {test.get('id')} → {derived_from}: {requirements_map[derived_from].get('text', '')[:50]}...")
+            else:
+                print(f"⚠️  No mapping found for {test.get('id')} → {derived_from}")
 
             # Enhance test case with UI data
             enhanced_test = {

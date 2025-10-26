@@ -1,0 +1,240 @@
+{
+  "info": {
+    "name": "Vertex Agent API - Production",
+    "description": "Complete healthcare compliance test generation pipeline deployed on Cloud Run",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://vertex-agent-api-401328495550.us-central1.run.app",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API is running and healthy"
+      }
+    },
+    {
+      "name": "2. API Information",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Get API information and available endpoints"
+      }
+    },
+    {
+      "name": "3. Generate UI Tests (GDPR On) - MAIN ENDPOINT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "PRD-7.pdf",
+              "description": "Upload your PRD PDF file here"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/generate-ui-tests?gdpr_mode=true",
+          "host": ["{{base_url}}"],
+          "path": ["generate-ui-tests"],
+          "query": [
+            {
+              "key": "gdpr_mode",
+              "value": "true",
+              "description": "Enable PII masking"
+            }
+          ]
+        },
+        "description": "Complete pipeline: DocAI → DLP → RAG → KG → Gemini → UI\n\n**Expected Response:**\n- Test cases with NO [PERSON_NAME] placeholders\n- 21 compliance standards from RAG corpus\n- Knowledge graph with nodes & edges\n- Compliance dashboard with coverage score\n\n**Time:** 25-40 seconds"
+      }
+    },
+    {
+      "name": "4. Generate UI Tests (GDPR Off)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "PRD-7.pdf",
+              "description": "Upload your PRD PDF file here"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/generate-ui-tests?gdpr_mode=false",
+          "host": ["{{base_url}}"],
+          "path": ["generate-ui-tests"],
+          "query": [
+            {
+              "key": "gdpr_mode",
+              "value": "false",
+              "description": "Skip PII masking"
+            }
+          ]
+        },
+        "description": "Same pipeline but without PII masking (for comparison)\n\n**Time:** 25-40 seconds"
+      }
+    },
+    {
+      "name": "5. Extract Document (Step 1 Only)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "PRD-7.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/extract-document?use_mock=false",
+          "host": ["{{base_url}}"],
+          "path": ["extract-document"],
+          "query": [
+            {
+              "key": "use_mock",
+              "value": "false"
+            }
+          ]
+        },
+        "description": "Document AI extraction only (no DLP, RAG, or test generation)"
+      }
+    },
+    {
+      "name": "6. Extract + Mask (Steps 1-2)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "PRD-7.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/extract-mask?use_mock=false&gdpr_mode=true",
+          "host": ["{{base_url}}"],
+          "path": ["extract-mask"],
+          "query": [
+            {
+              "key": "use_mock",
+              "value": "false"
+            },
+            {
+              "key": "gdpr_mode",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Document AI + DLP masking (no RAG or test generation)"
+      }
+    },
+    {
+      "name": "7. RAG Enhancement (Steps 1-3)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "PRD-7.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/rag-enhance?use_mock=false&gdpr_mode=true&rag_location=europe-west3",
+          "host": ["{{base_url}}"],
+          "path": ["rag-enhance"],
+          "query": [
+            {
+              "key": "use_mock",
+              "value": "false"
+            },
+            {
+              "key": "gdpr_mode",
+              "value": "true"
+            },
+            {
+              "key": "rag_location",
+              "value": "europe-west3"
+            }
+          ]
+        },
+        "description": "Document AI + DLP + RAG corpus enhancement"
+      }
+    },
+    {
+      "name": "8. Build Knowledge Graph (Steps 1-4)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "PRD-7.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/build-knowledge-graph?use_mock=false&gdpr_mode=true&rag_location=europe-west3",
+          "host": ["{{base_url}}"],
+          "path": ["build-knowledge-graph"],
+          "query": [
+            {
+              "key": "use_mock",
+              "value": "false"
+            },
+            {
+              "key": "gdpr_mode",
+              "value": "true"
+            },
+            {
+              "key": "rag_location",
+              "value": "europe-west3"
+            }
+          ]
+        },
+        "description": "Document AI + DLP + RAG + Knowledge Graph construction"
+      }
+    }
+  ]
+}

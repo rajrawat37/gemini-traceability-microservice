@@ -296,57 +296,113 @@ def detect_compliance_standards(text: str) -> List[Dict[str, str]]:
 
 def detect_requirements(text: str) -> List[Dict[str, Any]]:
     """
-    3️⃣ Rule-based requirement detection using modal verbs and bullets
-    
+    3️⃣ ENHANCED rule-based requirement detection with multiple strategies
+
+    Detects requirements using:
+    - Modal verbs (shall, must, should, will)
+    - Key action verbs (provide, support, enable, allow, implement)
+    - Bullet points and numbered lists
+    - Section headers as high-level requirements
+    - Feature/capability descriptions
+
     Args:
         text: Text to analyze
-        
+
     Returns:
         List of detected requirements with metadata
     """
     requirements = []
-    
-    # Modal verbs pattern
+
+    # 1️⃣ Modal verbs pattern (strict requirements)
     modal_verbs = [
         'shall', 'must', 'should', 'will', 'may',
-        'needs to', 'required to', 'has to', 'ought to'
+        'needs to', 'required to', 'has to', 'ought to', 'supposed to'
     ]
-    
-    # Build regex pattern for modal verbs
     modal_pattern = r'\b(' + '|'.join(modal_verbs) + r')\b'
-    
-    # Split text into sentences
-    sentences = re.split(r'[.!?]\s+', text)
-    
+
+    # 2️⃣ Key action verbs (feature/capability requirements)
+    action_verbs = [
+        'provide', 'support', 'enable', 'allow', 'implement',
+        'ensure', 'guarantee', 'deliver', 'offer', 'include',
+        'facilitate', 'perform', 'execute', 'process', 'handle'
+    ]
+    action_pattern = r'\b(' + '|'.join(action_verbs) + r')(?:s|ing)?\b'
+
+    # 3️⃣ Section header pattern (high-level requirements)
+    section_pattern = r'^[A-Z][a-zA-Z\s&-]{3,40}:(?!\n)'  # "Feature Name:" or "Security:"
+
+    # Split text into lines and sentences
+    lines = text.split('\n')
     req_id_counter = 1
-    
-    for sentence in sentences:
-        sentence = sentence.strip()
-        if not sentence:
+    seen_texts = set()  # Deduplication
+
+    for line in lines:
+        line = line.strip()
+        if not line or len(line) < 10:  # Skip very short lines
             continue
-        
-        # Check for modal verbs
-        if re.search(modal_pattern, sentence, re.IGNORECASE):
-            requirements.append({
-                "id": f"REQ-{req_id_counter:03d}",
-                "text": sentence,
-                "type": "MODAL_VERB",
-                "confidence": 0.8
-            })
-            req_id_counter += 1
-        
-        # Check for bullet points or numbered lists
-        elif re.match(r'^\s*[\-\*•]\s+', sentence) or re.match(r'^\s*\d+[\.\)]\s+', sentence):
-            # Bullet points often indicate requirements
-            if len(sentence) > 20:  # Meaningful length
+
+        # Check for section headers (e.g., "Security:", "Performance:")
+        if re.match(section_pattern, line):
+            req_text = line.split(':')[0].strip()
+            if req_text not in seen_texts and len(req_text) > 5:
+                requirements.append({
+                    "id": f"REQ-{req_id_counter:03d}",
+                    "text": line[:200],  # Limit to 200 chars
+                    "type": "SECTION_HEADER",
+                    "confidence": 0.75
+                })
+                seen_texts.add(req_text)
+                req_id_counter += 1
+
+        # Split line into sentences
+        sentences = re.split(r'[.!?]\s+', line)
+
+        for sentence in sentences:
+            sentence = sentence.strip()
+            if not sentence or len(sentence) < 15:  # Lowered threshold from 20 to 15
+                continue
+
+            # Deduplicate
+            if sentence in seen_texts:
+                continue
+
+            # 4️⃣ Check for modal verbs (strict requirements)
+            if re.search(modal_pattern, sentence, re.IGNORECASE):
                 requirements.append({
                     "id": f"REQ-{req_id_counter:03d}",
                     "text": sentence,
-                    "type": "BULLET_POINT",
-                    "confidence": 0.7
+                    "type": "MODAL_VERB",
+                    "confidence": 0.85
                 })
+                seen_texts.add(sentence)
                 req_id_counter += 1
-    
+
+            # 5️⃣ Check for action verbs (feature/capability requirements)
+            elif re.search(action_pattern, sentence, re.IGNORECASE):
+                # Additional filter: avoid common prose (must contain system/user/feature/data)
+                if any(keyword in sentence.lower() for keyword in ['system', 'user', 'feature', 'application', 'data', 'service', 'platform']):
+                    requirements.append({
+                        "id": f"REQ-{req_id_counter:03d}",
+                        "text": sentence,
+                        "type": "ACTION_VERB",
+                        "confidence": 0.7
+                    })
+                    seen_texts.add(sentence)
+                    req_id_counter += 1
+
+            # 6️⃣ Check for bullet points or numbered lists
+            elif re.match(r'^\s*[\-\*•○]\s+', sentence) or re.match(r'^\s*[0-9a-z]+[\.\)]\s+', sentence):
+                # Lowered threshold from 20 to 15 characters
+                if len(sentence) > 15:
+                    requirements.append({
+                        "id": f"REQ-{req_id_counter:03d}",
+                        "text": sentence,
+                        "type": "BULLET_POINT",
+                        "confidence": 0.7
+                    })
+                    seen_texts.add(sentence)
+                    req_id_counter += 1
+
     return requirements
 
 

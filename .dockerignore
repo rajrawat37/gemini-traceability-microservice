@@ -12,6 +12,7 @@ dist/
 secure_doc_agent/
 deploy_agent.py
 test_*.py
+check_*.py
 .env
 .DS_Store
 Makefile
@@ -22,4 +23,9 @@ deployment_metadata.json
 sample_document.pdf
 pyproject.toml
 run_*.sh
+server.log
+*.log
+*.pdf
+PRD-*.pdf
+verify_*.py
 

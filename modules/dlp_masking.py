@@ -123,9 +123,8 @@ async def mask_chunks_with_dlp(docai_response: dict, project_id: str, gdpr_mode:
             if "trace_links" in chunk:
                 del chunk["trace_links"]
 
-            # Remove original_text if no PII found (reduce payload)
-            if not chunk.get("pii_found", False) and "original_text" in chunk:
-                del chunk["original_text"]
+            # 🚀 KEEP original_text for all chunks (needed for Gemini quality)
+            # No longer removing original_text to ensure high-quality test generation
 
         # Calculate pipeline metrics for dashboarding
         summary_base = docai_response.get("summary", {})
@@ -193,9 +192,9 @@ async def mask_chunks_with_dlp(docai_response: dict, project_id: str, gdpr_mode:
             chunk["pii_count"] = masked_result.get("pii_count", 0)
             chunk["pii_types"] = masked_result.get("pii_types", [])
             
-            # Add original_text only if pii_found=True or gdpr_mode=False
-            if masked_result.get("pii_found", False) or not gdpr_mode:
-                chunk["original_text"] = chunk.get("text", "")
+            # 🚀 ALWAYS preserve original_text for Gemini quality (even when gdpr_mode=True)
+            # DLP still validates compliance, but we send original to Gemini for better test generation
+            chunk["original_text"] = chunk.get("text", "")
             
             # Add embedding_ready_text for RAG processing
             chunk["embedding_ready_text"] = chunk["masked_text"].lower().replace("\n", " ").strip()
@@ -266,9 +265,8 @@ async def mask_chunks_with_dlp(docai_response: dict, project_id: str, gdpr_mode:
             if "trace_links" in chunk:
                 del chunk["trace_links"]
 
-            # Remove original_text if no PII found (reduce payload)
-            if not chunk.get("pii_found", False) and "original_text" in chunk:
-                del chunk["original_text"]
+            # 🚀 KEEP original_text for all chunks (needed for Gemini quality)
+            # No longer removing original_text to ensure high-quality test generation
 
         print(f"✅ DLP masking complete: {chunks_with_pii}/{len(chunks)} chunks with PII")
 
@@ -393,9 +391,8 @@ async def mask_chunks_with_dlp(docai_response: dict, project_id: str, gdpr_mode:
             if "trace_links" in chunk:
                 del chunk["trace_links"]
 
-            # Remove original_text if no PII found (reduce payload)
-            if not chunk.get("pii_found", False) and "original_text" in chunk:
-                del chunk["original_text"]
+            # 🚀 KEEP original_text for all chunks (needed for Gemini quality)
+            # No longer removing original_text to ensure high-quality test generation
 
         # Calculate pipeline metrics for dashboarding (even on error)
         summary_base = docai_response.get("summary", {})
@@ -539,10 +536,10 @@ async def process_chunks_with_dlp_async(chunks: List[dict], project_id: str, loc
     # Process chunks in parallel batches for better performance
     batch_size = 5
     all_results = []
-    
+
     for i in range(0, len(chunks), batch_size):
         batch = chunks[i:i + batch_size]
-        
+
         # Process batch in parallel using asyncio.gather
         # Pass shared client and configs to avoid recreating them in each thread
         tasks = [
@@ -550,7 +547,7 @@ async def process_chunks_with_dlp_async(chunks: List[dict], project_id: str, loc
             for chunk in batch
         ]
         batch_results = await asyncio.gather(*tasks, return_exceptions=True)
-        
+
         # Handle any exceptions
         for j, result in enumerate(batch_results):
             if isinstance(result, Exception):
@@ -563,7 +560,7 @@ async def process_chunks_with_dlp_async(chunks: List[dict], project_id: str, loc
                 })
             else:
                 all_results.append(result)
-    
+
     return all_results
 
 

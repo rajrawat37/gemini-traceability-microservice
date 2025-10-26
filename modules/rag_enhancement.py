@@ -17,69 +17,61 @@ _rag_tool_lock = threading.Lock()
 
 def get_cached_rag_tool(project_id: str, rag_corpus_name: str, rag_location: str):
     """
-    Get cached RAG tool or create new one with thread safety
+    Get cached RAG configuration (corpus name) for thread safety
+
+    Note: The new Vertex AI API uses rag.retrieval_query() function directly,
+    not a tool object. We just cache the corpus configuration here.
     """
     cache_key = f"{project_id}_{rag_corpus_name}_{rag_location}"
 
     with _rag_tool_lock:
         if cache_key in _rag_tool_cache:
-            print(f"🔄 Using cached RAG tool for {cache_key}")
+            print(f"🔄 Using cached RAG configuration for corpus")
             return _rag_tool_cache[cache_key]
 
         try:
-            print(f"🆕 Creating new RAG tool for {cache_key}")
-            # Try multiple methods in order of preference
-            rag_tool = None
+            print(f"🆕 Validating RAG corpus configuration...")
 
-            # Method 1: Try rag.Tool (newer API)
-            if hasattr(rag, 'Tool'):
-                try:
-                    rag_tool = rag.Tool(
-                        retrieval=rag.Retrieval(
-                            source=rag.VertexRagStore(
-                                rag_corpora=[rag_corpus_name]
-                            )
-                        )
-                    )
-                    print(f"✅ Created RAG tool using rag.Tool API")
-                except Exception as e:
-                    print(f"⚠️  rag.Tool failed: {str(e)}")
+            # Validate corpus exists by attempting a test query
+            # Store corpus configuration as a dict (not a tool object)
+            rag_config = {
+                "project_id": project_id,
+                "corpus_name": rag_corpus_name,
+                "location": rag_location
+            }
 
-            # Method 2: Try rag.Retrieval.from_corpus (older API)
-            if not rag_tool and hasattr(rag, 'Retrieval'):
-                try:
-                    if hasattr(rag.Retrieval, 'from_corpus'):
-                        rag_tool = rag.Retrieval.from_corpus(
-                            rag_corpus_name=rag_corpus_name,
-                            project_id=project_id,
-                            location=rag_location
-                        )
-                        print(f"✅ Created RAG tool using rag.Retrieval.from_corpus API")
-                except Exception as e:
-                    print(f"⚠️  rag.Retrieval.from_corpus failed: {str(e)}")
-
-            if rag_tool:
-                _rag_tool_cache[cache_key] = rag_tool
-                return rag_tool
-            else:
-                print(f"❌ All RAG tool creation methods failed")
-                return None
+            # Cache the configuration
+            _rag_tool_cache[cache_key] = rag_config
+            print(f"✅ RAG corpus configuration cached successfully")
+            return rag_config
 
         except Exception as e:
-            print(f"❌ Failed to create RAG tool: {str(e)}")
+            print(f"❌ Failed to cache RAG configuration: {str(e)}")
             return None
 
 
-async def process_chunk_with_rag(chunk: dict, rag_tool, doc_counter: int) -> dict:
+async def process_chunk_with_rag(chunk: dict, rag_config: dict, doc_counter: int) -> dict:
     """
-    Process a single chunk with RAG tool using async concurrency
+    Process a single chunk with RAG using new rag.retrieval_query() API
+
+    Args:
+        chunk: Chunk dictionary with text to query
+        rag_config: RAG configuration dict with corpus_name, project_id, location
+        doc_counter: Counter for logging
     """
     try:
+        # Debug: Check what's in the chunk
+        chunk_id = chunk.get("chunk_id", "unknown")
+        detected_reqs = chunk.get("detected_requirements", [])
+        detected_comp = chunk.get("detected_compliance", [])
+        print(f"📦 RAG processing {chunk_id}: {len(detected_reqs)} requirements, {len(detected_comp)} compliance")
+
         chunk_text = chunk.get("masked_text", chunk.get("text", ""))
         if not chunk_text.strip():
             return {
                 "chunk_id": chunk.get("chunk_id"),
                 "text": chunk_text,
+                "original_text": chunk.get("original_text", chunk_text),  # 🚀 Pass original for Gemini
                 "requirement_entities": chunk.get("requirement_entities", []),
                 "compliance_entities": chunk.get("compliance_entities", []),
                 "matched_policies": [],
@@ -91,48 +83,91 @@ async def process_chunk_with_rag(chunk: dict, rag_tool, doc_counter: int) -> dic
             }
 
         # Dynamic thresholding based on chunk length
-        threshold = 0.6 if len(chunk_text) < 500 else 0.75
-        
-        # Query RAG tool asynchronously to avoid blocking
+        # Note: Lower threshold = stricter matching. Increase for broader matches.
+        similarity_top_k = 3
+        vector_distance_threshold = 0.6 if len(chunk_text) < 500 else 0.5  # Relaxed for better coverage
+
+        # Extract corpus name and validate
+        corpus_name = rag_config.get("corpus_name")
+        if not corpus_name:
+            raise ValueError("RAG corpus name not found in configuration")
+
+        # 🚀 NEW API: Use rag.retrieval_query() directly
+        print(f"🔍 Querying RAG corpus: {corpus_name}")
         rag_response = await asyncio.to_thread(
-            rag_tool.query,
+            rag.retrieval_query,
             text=chunk_text,
-            similarity_threshold=threshold,
-            max_results=3
+            rag_corpora=[corpus_name],
+            similarity_top_k=similarity_top_k,
+            vector_distance_threshold=vector_distance_threshold
         )
 
-        # Extract matched policies from RAG response
+        # Extract matched policies from new RAG response format
         matched_policies = []
         if hasattr(rag_response, 'contexts') and rag_response.contexts:
-            for context in rag_response.contexts:
-                if hasattr(context, 'text') and context.text:
+            if hasattr(rag_response.contexts, 'contexts'):
+                # Response has nested contexts
+                contexts_list = rag_response.contexts.contexts
+            else:
+                contexts_list = rag_response.contexts
+
+            for context in contexts_list:
+                # Extract text and metadata
+                context_text = ""
+                context_source = ""
+                distance = 0.0
+
+                if hasattr(context, 'text'):
+                    context_text = context.text
+                if hasattr(context, 'source_uri'):
+                    context_source = context.source_uri
+                if hasattr(context, 'distance'):
+                    distance = context.distance
+
+                # Calculate similarity score from distance (lower distance = higher similarity)
+                similarity_score = max(0.0, 1.0 - distance)
+
+                if context_text:
                     matched_policies.append({
-                        "policy_name": getattr(context, 'title', 'Unknown Policy'),
-                        "policy_text": context.text[:200] + "..." if len(context.text) > 200 else context.text,
-                        "similarity_score": getattr(context, 'similarity_score', 0.0),
-                        "source": "rag_corpus"
+                        "policy_name": context_source.split('/')[-1] if context_source else 'RAG Policy',
+                        "policy_text": context_text[:200] + "..." if len(context_text) > 200 else context_text,
+                        "similarity_score": round(similarity_score, 2),
+                        "source": "rag_corpus",
+                        "distance": round(distance, 3)
                     })
 
-        return {
+        result = {
             "chunk_id": chunk.get("chunk_id"),
-            "text": chunk_text,
-            "requirement_entities": chunk.get("requirement_entities", []),
-            "compliance_entities": chunk.get("compliance_entities", []),
+            "page_number": chunk.get("page_number", 1),
+            "text": chunk_text,  # This is masked_text for RAG queries
+            "original_text": chunk.get("original_text", chunk_text),  # 🚀 Pass original for Gemini
+            "requirement_entities": chunk.get("detected_requirements", chunk.get("requirement_entities", [])),
+            "compliance_entities": chunk.get("detected_compliance", chunk.get("compliance_entities", [])),
             "matched_policies": matched_policies,
             "bounding_box": chunk.get("bounding_box", {}),
             "source_type": "prd_document",
             "pii_found": chunk.get("pii_found", False),
             "pii_types": chunk.get("pii_types", []),
-            "rag_response": rag_response
+            "rag_response": "RAG query successful"
         }
+
+        # Debug: Verify what we're returning
+        print(f"✅ {chunk_id} matched {len(matched_policies)} policies from RAG corpus")
+
+        return result
 
     except Exception as e:
         print(f"⚠️  RAG processing error for chunk {chunk.get('chunk_id', 'unknown')}: {str(e)}")
+        import traceback
+        print(f"📋 Error trace: {traceback.format_exc()}")
+        chunk_text = chunk.get("masked_text", chunk.get("text", ""))
         return {
             "chunk_id": chunk.get("chunk_id"),
-            "text": chunk.get("masked_text", chunk.get("text", "")),
-            "requirement_entities": chunk.get("requirement_entities", []),
-            "compliance_entities": chunk.get("compliance_entities", []),
+            "page_number": chunk.get("page_number", 1),
+            "text": chunk_text,
+            "original_text": chunk.get("original_text", chunk_text),  # 🚀 Pass original for Gemini
+            "requirement_entities": chunk.get("detected_requirements", chunk.get("requirement_entities", [])),
+            "compliance_entities": chunk.get("detected_compliance", chunk.get("compliance_entities", [])),
             "matched_policies": [],
             "bounding_box": chunk.get("bounding_box", {}),
             "source_type": "prd_document",
@@ -151,13 +186,13 @@ async def query_rag_from_chunks(dlp_output: dict, project_id: str, rag_corpus_na
             rag_corpus_name = os.getenv("RAG_CORPUS_NAME", "projects/poc-genai-hacks/locations/europe-west3/ragCorpora/6917529027641081856")
         
         print(f"🔍 Querying RAG corpus: {rag_corpus_name}")
-        
-        # Get cached RAG tool
-        rag_tool = get_cached_rag_tool(project_id, rag_corpus_name, rag_location)
-        if not rag_tool:
-            print("⚠️  RAG tool creation failed, using fallback keyword matching")
+
+        # Get cached RAG configuration
+        rag_config = get_cached_rag_tool(project_id, rag_corpus_name, rag_location)
+        if not rag_config:
+            print("⚠️  RAG configuration failed, using fallback keyword matching")
             return await fallback_rag_processing(dlp_output)
-        
+
         # Get chunks from DLP output (unified structure)
         chunks = dlp_output.get("chunks", [])
         if not chunks:
@@ -170,7 +205,7 @@ async def query_rag_from_chunks(dlp_output: dict, project_id: str, rag_corpus_na
             }
 
         # Process chunks with RAG concurrently for better performance
-        tasks = [process_chunk_with_rag(chunk, rag_tool, i) for i, chunk in enumerate(chunks)]
+        tasks = [process_chunk_with_rag(chunk, rag_config, i) for i, chunk in enumerate(chunks)]
         context_docs = await asyncio.gather(*tasks, return_exceptions=True)
         
         # Handle any exceptions from concurrent processing
@@ -180,9 +215,11 @@ async def query_rag_from_chunks(dlp_output: dict, project_id: str, rag_corpus_na
                 print(f"⚠️  RAG chunk processing error for chunk {i}: {str(result)}")
                 # Create a fallback result for failed chunks
                 chunk = chunks[i]
+                chunk_text = chunk.get("masked_text", chunk.get("text", ""))
                 processed_docs.append({
                     "chunk_id": chunk.get("chunk_id"),
-                    "text": chunk.get("masked_text", chunk.get("text", "")),
+                    "text": chunk_text,
+                    "original_text": chunk.get("original_text", chunk_text),  # 🚀 Pass original for Gemini
                     "requirement_entities": chunk.get("requirement_entities", []),
                     "compliance_entities": chunk.get("compliance_entities", []),
                     "matched_policies": [],
@@ -308,11 +345,14 @@ async def fallback_rag_processing(dlp_output: dict) -> dict:
             reverse=True
         )
 
+        chunk_text = chunk.get("masked_text", chunk.get("text", ""))
         context_docs.append({
             "chunk_id": chunk.get("chunk_id"),
-            "text": chunk.get("masked_text", chunk.get("text", "")),
-            "requirement_entities": chunk.get("requirement_entities", []),
-            "compliance_entities": chunk.get("compliance_entities", []),
+            "page_number": chunk.get("page_number", 1),
+            "text": chunk_text,
+            "original_text": chunk.get("original_text", chunk_text),  # 🚀 Pass original for Gemini
+            "requirement_entities": chunk.get("detected_requirements", chunk.get("requirement_entities", [])),
+            "compliance_entities": chunk.get("detected_compliance", chunk.get("compliance_entities", [])),
             "matched_policies": matched_policies_list,
             "bounding_box": chunk.get("bounding_box", {}),
             "source_type": "prd_document",

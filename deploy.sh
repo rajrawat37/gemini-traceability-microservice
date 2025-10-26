@@ -35,7 +35,7 @@ gcloud run deploy ${SERVICE_NAME} \
     --cpu 2 \
     --timeout 900 \
     --max-instances 10 \
-    --set-env-vars "PROJECT_ID=${PROJECT_ID},LOCATION=us,DLP_LOCATION=us,RAG_LOCATION=europe-west3"
+    --set-env-vars "PROJECT_ID=${PROJECT_ID},LOCATION=us,PROCESSOR_ID=e7f52140009fdda2,DLP_LOCATION=us,RAG_CORPUS_NAME=projects/poc-genai-hacks/locations/europe-west3/ragCorpora/6917529027641081856,RAG_LOCATION=europe-west3,GEMINI_LOCATION=us-central1,GEMINI_MODEL=gemini-2.0-flash-001"
 
 echo "✅ Deployment complete!"
 echo "🌐 Service URL: https://${SERVICE_NAME}-${REGION}-${PROJECT_ID}.a.run.app"

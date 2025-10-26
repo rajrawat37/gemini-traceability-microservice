@@ -585,3 +585,148 @@ def create_flow_visualization(ui_result: dict, kg_result: dict) -> dict:
             "error": str(e),
             "message": "Failed to create flow visualization"
         }
+
+
+def generate_audit_report(kg_result: dict, test_categories: list, rag_result: dict = None) -> dict:
+    """
+    Generate audit-ready compliance traceability report
+
+    Creates a comprehensive traceability matrix showing:
+    - Which requirements are verified by test cases
+    - Which compliance standards are satisfied
+    - Gap analysis and verification status
+
+    Args:
+        kg_result: Knowledge graph output with nodes and edges
+        test_categories: List of test categories with test cases
+        rag_result: Optional RAG output for additional context
+
+    Returns:
+        Audit report with traceability matrix and compliance coverage
+    """
+    try:
+        from datetime import datetime, timezone
+
+        if not kg_result or kg_result.get("status") != "success":
+            return {
+                "status": "error",
+                "message": "No knowledge graph data available for audit report generation"
+            }
+
+        kg_nodes = kg_result.get("nodes", [])
+        kg_edges = kg_result.get("edges", [])
+
+        # Extract nodes by type
+        requirements = [n for n in kg_nodes if n.get("type") == "REQUIREMENT"]
+        compliance_standards = [n for n in kg_nodes if n.get("type") == "COMPLIANCE_STANDARD"]
+        test_case_nodes = [n for n in kg_nodes if n.get("type") == "TEST_CASE"]
+
+        # Extract all test cases from categories
+        all_test_cases = []
+        for category in test_categories:
+            all_test_cases.extend(category.get("test_cases", []))
+
+        # Build traceability matrix
+        traceability_matrix = []
+
+        for req in requirements:
+            req_id = req.get("id")
+
+            # Find test cases for this requirement
+            tests_for_req = []
+            for test in all_test_cases:
+                if test.get("derived_from") == req_id:
+                    tests_for_req.append({
+                        "test_id": test.get("test_id"),
+                        "title": test.get("title"),
+                        "category": test.get("category"),
+                        "priority": test.get("priority")
+                    })
+
+            # Find compliance standards for this requirement
+            compliance_for_req = []
+            for edge in kg_edges:
+                if edge.get("from") == req_id:
+                    comp_node = next((n for n in kg_nodes if n["id"] == edge.get("to")), None)
+                    if comp_node and comp_node.get("type") == "COMPLIANCE_STANDARD":
+                        compliance_for_req.append({
+                            "standard_id": comp_node.get("id"),
+                            "standard_name": comp_node.get("title"),
+                            "standard_type": comp_node.get("standard_type", "UNKNOWN")
+                        })
+
+            # Determine verification status
+            status = "VERIFIED" if tests_for_req else "NOT_VERIFIED"
+            status_icon = "✅" if tests_for_req else "❌"
+
+            traceability_matrix.append({
+                "requirement_id": req_id,
+                "requirement_text": req.get("text", "")[:150] + ("..." if len(req.get("text", "")) > 150 else ""),
+                "requirement_full_text": req.get("text", ""),
+                "page_number": req.get("page_number"),
+                "confidence": req.get("confidence", 0.0),
+                "test_cases": tests_for_req,
+                "test_count": len(tests_for_req),
+                "compliance_standards": compliance_for_req,
+                "status": status,
+                "status_icon": status_icon
+            })
+
+        # Calculate summary statistics
+        requirements_verified = len([r for r in traceability_matrix if r["status"] == "VERIFIED"])
+        requirements_unverified = len([r for r in traceability_matrix if r["status"] == "NOT_VERIFIED"])
+
+        # Calculate coverage by compliance standard
+        compliance_coverage = {}
+        for comp in compliance_standards:
+            comp_id = comp.get("id")
+            comp_name = comp.get("title")
+
+            # Find requirements linked to this standard
+            reqs_for_standard = []
+            for edge in kg_edges:
+                if edge.get("to") == comp_id:
+                    req_id = edge.get("from")
+                    req_entry = next((r for r in traceability_matrix if r["requirement_id"] == req_id), None)
+                    if req_entry:
+                        reqs_for_standard.append(req_entry)
+
+            # Count verified vs total
+            total_reqs = len(reqs_for_standard)
+            verified_reqs = len([r for r in reqs_for_standard if r["status"] == "VERIFIED"])
+            coverage_pct = (verified_reqs / total_reqs * 100) if total_reqs > 0 else 0
+
+            compliance_coverage[comp_name] = {
+                "standard_id": comp_id,
+                "standard_name": comp_name,
+                "standard_type": comp.get("standard_type", "UNKNOWN"),
+                "total_requirements": total_reqs,
+                "requirements_verified": verified_reqs,
+                "requirements_unverified": total_reqs - verified_reqs,
+                "coverage_percentage": round(coverage_pct, 1)
+            }
+
+        return {
+            "status": "success",
+            "report_type": "Compliance Traceability Matrix",
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "summary": {
+                "total_requirements": len(requirements),
+                "requirements_verified": requirements_verified,
+                "requirements_unverified": requirements_unverified,
+                "verification_percentage": round((requirements_verified / len(requirements) * 100) if requirements else 0, 1),
+                "total_compliance_standards": len(compliance_standards),
+                "total_tests": len(all_test_cases)
+            },
+            "traceability_matrix": traceability_matrix,
+            "compliance_coverage": list(compliance_coverage.values())
+        }
+
+    except Exception as e:
+        import traceback
+        return {
+            "status": "error",
+            "error": str(e),
+            "error_trace": traceback.format_exc(),
+            "message": "Failed to generate audit report"
+        }
