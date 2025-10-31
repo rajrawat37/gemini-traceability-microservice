@@ -91,6 +91,11 @@ def build_knowledge_graph_from_rag(rag_output: dict, test_cases: list = None) ->
                         "page_number": page_number,
                         "priority": "High" if "critical" in req_entity.get("text", "").lower() else "Medium"
                     }
+
+                    # 🚀 NEW: Preserve bounding box from detected requirement
+                    if "bounding_box" in req_entity:
+                        req_node["bounding_box"] = req_entity["bounding_box"]
+
                     nodes.append(req_node)
                     seen_requirements.add(req_id)
 

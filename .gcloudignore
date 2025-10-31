@@ -1,0 +1,94 @@
+# This file specifies files that are *not* uploaded to Google Cloud
+# using gcloud. It follows the same syntax as .gitignore, with the addition of
+# "#!include" directives (which insert the entries of the given .gitignore-style
+# file at that point).
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+*_test.py
+tests/
+
+# Test files (excluding modules directory)
+/test_*.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# Logs
+*.log
+logs/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Output files
+*.json
+!mockData/**/*.json
+output*.json
+test_*.json
+*_output.json
+*_report.txt
+
+# Verification files (not needed in production)
+/validate_*.py
+/compare_*.py
+BOUNDING_BOX_*.md
+CONTEXT_EXPANSION_*.md
+COMPLETE_IMPLEMENTATION_*.md
+IMPLEMENTATION_COMPLETE.md
+LOCALHOST_USAGE_GUIDE.md
+MULTI_LINE_ENHANCEMENT_SUMMARY.md
+PRD7_VERIFICATION_SUMMARY.md
+QUICK_VERIFICATION_GUIDE.md
+README_VERIFICATION.md
+VERIFICATION_REPORT_*.txt
+
+# Local environment
+.env.local
+.env.*.local

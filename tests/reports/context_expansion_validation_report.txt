@@ -1,0 +1,103 @@
+================================================================================
+📊 CONTEXT EXPANSION VALIDATION REPORT
+================================================================================
+
+📈 OVERALL STATISTICS
+  Total requirements: 43
+  Complete requirements: 27 (62.8%)
+  Truncated requirements: 15 (34.9%)
+  Average length: 88.0 characters
+
+📏 LENGTH DISTRIBUTION
+  Short (< 50 chars): 3 (7.0%)
+  Medium (50-150 chars): 38 (88.4%)
+  Long (≥ 150 chars): 2 (4.7%)
+
+❌ TRUNCATED REQUIREMENTS (Needs Improvement)
+
+1. REQ-001 (Page 1) - 37 chars
+   Type: SECTION_HEADER
+   Text: "Product Name: Al-powered PRD Reviewer"
+   Ends with: "Reviewer" ← Incomplete!
+
+2. REQ-003 (Page 1) - 81 chars
+   Type: BULLET_POINT
+   Text: "• PRDs are central to product development: A well-written PRD aligns teams around"
+   Ends with: "around" ← Incomplete!
+
+3. REQ-004 (Page 1) - 90 chars
+   Type: SECTION_HEADER
+   Text: "Al-driven assistance: With the increasing availability of Al solutions, there is a growing"
+   Ends with: "growing" ← Incomplete!
+
+4. REQ-005 (Page 1) - 79 chars
+   Type: SECTION_HEADER
+   Text: "Competitive advantage: Existing tools often focus on grammar and spell-checking"
+   Ends with: "spell-checking" ← Incomplete!
+
+5. REQ-003 (Page 2) - 85 chars
+   Type: SECTION_HEADER
+   Text: "Parsing & Formatting: Al-powered parsing to handle headings, bullet points, and other"
+   Ends with: "other" ← Incomplete!
+
+6. REQ-005 (Page 2) - 74 chars
+   Type: SECTION_HEADER
+   Text: "Structural Analysis: Check for essential PRD sections (e.g., Goals, Scope,"
+   Ends with: "Scope," ← Incomplete!
+
+7. REQ-007 (Page 2) - 77 chars
+   Type: SECTION_HEADER
+   Text: "Completeness Score: Based on the presence of standard PRD components, such as"
+   Ends with: "as" ← Incomplete!
+
+8. REQ-008 (Page 2) - 77 chars
+   Type: SECTION_HEADER
+   Text: "Customizable Grading Rubric: Admins or advanced users can tweak weighting for"
+   Ends with: "for" ← Incomplete!
+
+9. REQ-001 (Page 3) - 84 chars
+   Type: SECTION_HEADER
+   Text: "Section-Level Insights: Offer specific suggestions to improve or enrich each section"
+   Ends with: "section" ← Incomplete!
+
+10. REQ-007 (Page 3) - 74 chars
+   Type: BULLET_POINT
+   Text: "• Frontend: A web-based interface (React, Vue, or similar) embedded within"
+   Ends with: "within" ← Incomplete!
+
+   ... and 5 more truncated requirements
+
+✅ COMPLETE REQUIREMENTS (Sample)
+
+1. REQ-002 (Page 1) - 213 chars
+   Type: ACTION_VERB
+   Text: "The tool allows users to upload or paste a PRD, then analyzes and grades the content. It also provides actionable feedback to improve clarity, completeness, and alignment with best practices in product management."
+
+2. REQ-006 (Page 3) - 157 chars
+   Type: BULLET_POINT
+   Text: "• Third-Party Integrations (Future scope): Potential APIs or plugins for popular product management and documentation tools (e.g., Confluence, Jira, Notion)."
+
+3. REQ-001 (Page 4) - 148 chars
+   Type: BULLET_POINT
+   Text: "• User Privacy: Option to remove user-submitted content after analysis or keep it anonymized for Al model improvements (with explicit user consent)."
+
+4. REQ-007 (Page 1) - 135 chars
+   Type: ACTION_VERB
+   Text: "Easy Integration: Allow users to paste their PRD text directly or upload their document (e.g., .docx, .pdf, .txt) for instant analysis."
+
+5. REQ-001 (Page 2) - 120 chars
+   Type: MODAL_VERB
+   Text: "Entrepreneurs & Founders: May be less experienced in formal PRD writing and seek guidance on structure and completeness."
+
+================================================================================
+🎯 SUCCESS METRICS
+================================================================================
+✅ Completeness Rate: 62.8%
+   Status: ⚠️  GOOD - Some improvements possible
+
+📊 Average Length: 88.0 chars
+   Status: ⚠️  MODERATE - Could be more detailed
+
+================================================================================
+✨ VALIDATION COMPLETE
+================================================================================

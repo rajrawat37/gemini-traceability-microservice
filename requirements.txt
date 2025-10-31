@@ -5,3 +5,12 @@ google-cloud-aiplatform==1.75.0
 fastapi==0.100.0
 uvicorn[standard]==0.23.0
 python-multipart==0.0.6
+
+# GDPR Compliance Dependencies
+sqlalchemy>=2.0.35  # Updated for Python 3.13 compatibility
+aiosqlite==0.19.0
+cryptography==42.0.0
+slowapi==0.1.9
+
+# Performance Benchmarking
+aiohttp==3.9.1

@@ -1,0 +1,1102 @@
+{
+  "status": "success",
+  "test_categories": [
+    {
+      "category_name": "Security Tests",
+      "category_icon": "\ud83d\udd12",
+      "test_cases": [
+        {
+          "test_id": "TC_001",
+          "title": "Verify User Authentication with Valid Credentials",
+          "description": "Attempt to log in with a valid username and password. System should grant access.",
+          "category": "Security Tests",
+          "priority": "Critical",
+          "derived_from": "REQ-001",
+          "expected_result": "User is successfully logged in and redirected to the main dashboard.",
+          "compliance_standards": [
+            "GDPR"
+          ],
+          "traceability": {
+            "requirement_id": "REQ-001",
+            "requirement_text": "Product Name: Al-powered PRD Reviewer",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.11717861145734787,
+                  "y_min": 0.10857142508029938,
+                  "x_max": 0.47497156262397766,
+                  "y_max": 0.17406593263149261
+                },
+                "chunk_id": "kg_node_REQ-001"
+              }
+            ],
+            "linked_edges": [
+              "REQ-001 \u2192 TC-001",
+              "TC-001 \u2192 COMP-002"
+            ],
+            "compliance_references": [
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100",
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100"
+            ],
+            "traceability_id": "TRACE_001",
+            "source_document": "Document chunk 1",
+            "confidence_score": 0.86,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-001",
+                  "type": "REQUIREMENT",
+                  "text": "Product Name: Al-powered PRD Reviewer",
+                  "confidence": 0.75
+                }
+              ],
+              "kg_edges": [
+                {
+                  "id": "EDGE_chunk_004_001",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_004_002",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_001",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_002",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_coverage": 1,
+              "kg_relationships": 4
+            }
+          },
+          "page_number": 1,
+          "bounding_box": {
+            "x_min": 0.11717861145734787,
+            "y_min": 0.10857142508029938,
+            "x_max": 0.47497156262397766,
+            "y_max": 0.17406593263149261
+          },
+          "chunk_id": "chunk_001",
+          "compliance_id": "GDPR:2016/679"
+        },
+        {
+          "test_id": "TC_002",
+          "title": "Verify Data Encryption at Rest and in Transit",
+          "description": "Upload a PRD containing sensitive data. Verify that the data is encrypted both when stored on the server and during transmission.",
+          "category": "Security Tests",
+          "priority": "Critical",
+          "derived_from": "REQ-004",
+          "expected_result": "Sensitive data is encrypted at rest and in transit using industry-standard encryption protocols (e.g., AES-256, TLS 1.2 or higher).",
+          "compliance_standards": [
+            "GDPR"
+          ],
+          "traceability": {
+            "requirement_id": "REQ-004",
+            "requirement_text": "Al-driven assistance: With the increasing availability of Al solutions, there is a growing",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.1757679134607315,
+                  "y_min": 0.5046153664588928,
+                  "x_max": 0.8697383403778076,
+                  "y_max": 0.5516483783721924
+                },
+                "chunk_id": "kg_node_REQ-004"
+              }
+            ],
+            "linked_edges": [
+              "REQ-002 \u2192 TC-002",
+              "TC-002 \u2192 COMP-003"
+            ],
+            "compliance_references": [
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100"
+            ],
+            "traceability_id": "TRACE_002",
+            "source_document": "Document chunk 2",
+            "confidence_score": 0.87,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-004",
+                  "type": "REQUIREMENT",
+                  "text": "Al-driven assistance: With the increasing availability of Al solutions, there is a growing",
+                  "confidence": 0.75
+                }
+              ],
+              "kg_edges": [
+                {
+                  "id": "EDGE_chunk_004_007",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_004_008",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_coverage": 1,
+              "kg_relationships": 2
+            }
+          },
+          "page_number": 4,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8208191394805908,
+            "y_max": 0.14373625814914703
+          },
+          "chunk_id": "chunk_004",
+          "compliance_id": "GDPR:2016/679"
+        }
+      ],
+      "total_tests": 2
+    },
+    {
+      "category_name": "Compliance Tests",
+      "category_icon": "\ud83d\udccb",
+      "test_cases": [
+        {
+          "test_id": "TC_003",
+          "title": "GDPR - Verify Anonymization of PRD Content",
+          "description": "Upload a PRD, choose to anonymize data for AI model improvement. Verify the uploaded document content is replaced by placeholder data.",
+          "category": "Compliance Tests",
+          "priority": "High",
+          "derived_from": "REQ-005",
+          "expected_result": "Personal identifiers in the PRD are replaced with anonymized data or placeholders, ensuring user privacy while enabling AI model training.",
+          "compliance_standards": [
+            "GDPR"
+          ],
+          "traceability": {
+            "requirement_id": "REQ-005",
+            "requirement_text": "Competitive advantage: Existing tools often focus on grammar and spell-checking",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.1769055724143982,
+                  "y_min": 0.5595604181289673,
+                  "x_max": 0.8475540280342102,
+                  "y_max": 0.6281318664550781
+                },
+                "chunk_id": "kg_node_REQ-005"
+              }
+            ],
+            "linked_edges": [
+              "REQ-001 \u2192 TC-001",
+              "TC-001 \u2192 COMP-002"
+            ],
+            "compliance_references": [
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100"
+            ],
+            "traceability_id": "TRACE_001",
+            "source_document": "Document chunk 1",
+            "confidence_score": 0.86,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-005",
+                  "type": "REQUIREMENT",
+                  "text": "Competitive advantage: Existing tools often focus on grammar and spell-checking",
+                  "confidence": 0.75
+                }
+              ],
+              "kg_edges": [
+                {
+                  "id": "EDGE_chunk_004_009",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_004_010",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_coverage": 1,
+              "kg_relationships": 2
+            }
+          },
+          "page_number": 4,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8208191394805908,
+            "y_max": 0.14373625814914703
+          },
+          "chunk_id": "chunk_004",
+          "compliance_id": "GDPR:2016/679"
+        },
+        {
+          "test_id": "TC_004",
+          "title": "Verify adherence to GDPR - Data Minimization",
+          "description": "Upload a PRD with excessive personal data. The system should provide a warning flag the user for unnecessary data collection.",
+          "category": "Compliance Tests",
+          "priority": "Medium",
+          "derived_from": "REQ-002",
+          "expected_result": "A clear warning message is displayed to the user, recommending the removal of the identified excessive personal data points.",
+          "compliance_standards": [
+            "GDPR"
+          ],
+          "traceability": {
+            "requirement_id": "REQ-002",
+            "requirement_text": "The tool allows users to upload or paste a PRD, then analyzes and grades the",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.11717861145734787,
+                  "y_min": 0.32131868600845337,
+                  "x_max": 0.8674630522727966,
+                  "y_max": 0.3894505500793457
+                },
+                "chunk_id": "kg_node_REQ-002"
+              }
+            ],
+            "linked_edges": [
+              "REQ-002 \u2192 TC-002",
+              "TC-002 \u2192 COMP-003"
+            ],
+            "compliance_references": [
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100",
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100"
+            ],
+            "traceability_id": "TRACE_002",
+            "source_document": "Document chunk 2",
+            "confidence_score": 0.87,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-002",
+                  "type": "REQUIREMENT",
+                  "text": "The tool allows users to upload or paste a PRD, then analyzes and grades the",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_edges": [
+                {
+                  "id": "EDGE_chunk_004_003",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_004_004",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_003",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_004",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_coverage": 1,
+              "kg_relationships": 4
+            }
+          },
+          "page_number": 4,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8208191394805908,
+            "y_max": 0.14373625814914703
+          },
+          "chunk_id": "chunk_004",
+          "compliance_id": "GDPR:2016/679"
+        }
+      ],
+      "total_tests": 2
+    },
+    {
+      "category_name": "Functional Tests",
+      "category_icon": "\u2699\ufe0f",
+      "test_cases": [
+        {
+          "test_id": "TC_005",
+          "title": "Verify PRD Analysis and Grading",
+          "description": "Upload a sample PRD document. Verify that the AI analyzes the document and provides a grade.",
+          "category": "Functional Tests",
+          "priority": "High",
+          "derived_from": "REQ-003",
+          "expected_result": "The AI analyzes the PRD and generates a grade based on predefined criteria.",
+          "compliance_standards": [],
+          "traceability": {
+            "requirement_id": "REQ-003",
+            "requirement_text": "\u2022 PRDs are central to product development: A well-written PRD aligns teams around",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.14789533615112305,
+                  "y_min": 0.44923076033592224,
+                  "x_max": 0.8742889761924744,
+                  "y_max": 0.49934065341949463
+                },
+                "chunk_id": "kg_node_REQ-003"
+              }
+            ],
+            "linked_edges": [
+              "REQ-001 \u2192 TC-001",
+              "TC-001 \u2192 COMP-002"
+            ],
+            "compliance_references": [
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100"
+            ],
+            "traceability_id": "TRACE_001",
+            "source_document": "Document chunk 1",
+            "confidence_score": 0.86,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-003",
+                  "type": "REQUIREMENT",
+                  "text": "\u2022 PRDs are central to product development: A well-written PRD aligns teams around",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_edges": [
+                {
+                  "id": "EDGE_chunk_004_005",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_004_006",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_coverage": 1,
+              "kg_relationships": 2
+            }
+          },
+          "page_number": 1,
+          "bounding_box": {
+            "x_min": 0.11717861145734787,
+            "y_min": 0.10857142508029938,
+            "x_max": 0.47497156262397766,
+            "y_max": 0.17406593263149261
+          },
+          "chunk_id": "chunk_001",
+          "compliance_id": null
+        },
+        {
+          "test_id": "TC_006",
+          "title": "Verify Section-Level Insights",
+          "description": "Upload a PRD with missing user personas. Verify the system suggests adding them.",
+          "category": "Functional Tests",
+          "priority": "High",
+          "derived_from": "REQ-008",
+          "expected_result": "The system provides a section-level insight suggesting the addition of user personas to improve the PRD.",
+          "compliance_standards": [],
+          "traceability": {
+            "requirement_id": "REQ-008",
+            "requirement_text": "Customizable Grading Rubric: Admins or advanced users can tweak weighting for",
+            "pdf_locations": [
+              {
+                "page_number": 2,
+                "bounding_box": {
+                  "x_min": 0.17633675038814545,
+                  "y_min": 0.7723076939582825,
+                  "x_max": 0.8435722589492798,
+                  "y_max": 0.8039560317993164
+                },
+                "chunk_id": "kg_node_REQ-008"
+              }
+            ],
+            "linked_edges": [
+              "REQ-002 \u2192 TC-002",
+              "TC-002 \u2192 COMP-003"
+            ],
+            "compliance_references": [
+              "HIPAA \u00a7164.312(a)(3)",
+              "FDA 21 CFR Part 11 Section 3",
+              "GDPR Article 3"
+            ],
+            "traceability_id": "TRACE_002",
+            "source_document": "Document chunk 2",
+            "confidence_score": 0.87,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-008",
+                  "type": "REQUIREMENT",
+                  "text": "Customizable Grading Rubric: Admins or advanced users can tweak weighting for",
+                  "confidence": 0.75
+                }
+              ],
+              "kg_edges": [],
+              "kg_coverage": 1,
+              "kg_relationships": 0
+            }
+          },
+          "page_number": 3,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.09670329838991165,
+            "x_max": 0.1575654149055481,
+            "y_max": 0.10241758078336716
+          },
+          "chunk_id": "chunk_003",
+          "compliance_id": null
+        },
+        {
+          "test_id": "TC_011",
+          "title": "Verify Best Practices Library Functionality",
+          "description": "Browse the best practices library. Verify relevance of returned best practices to PRD content.",
+          "category": "Functional Tests",
+          "priority": "Medium",
+          "derived_from": "REQ-009",
+          "expected_result": "The best practices library displays relevant resources and templates to improve PRD content.",
+          "compliance_standards": [],
+          "traceability": {
+            "requirement_id": "REQ-009",
+            "requirement_text": "Al Engine:",
+            "pdf_locations": [
+              {
+                "page_number": 3,
+                "bounding_box": {
+                  "x_min": 0.17406143248081207,
+                  "y_min": 0.5986813306808472,
+                  "x_max": 0.26279863715171814,
+                  "y_max": 0.611868143081665
+                },
+                "chunk_id": "kg_node_REQ-009"
+              }
+            ],
+            "linked_edges": [
+              "REQ-003 \u2192 TC-003",
+              "TC-003 \u2192 COMP-004"
+            ],
+            "compliance_references": [
+              "HIPAA \u00a7164.312(a)(1)",
+              "FDA 21 CFR Part 11 Section 4",
+              "GDPR Article 4"
+            ],
+            "traceability_id": "TRACE_003",
+            "source_document": "Document chunk 3",
+            "confidence_score": 0.88,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-009",
+                  "type": "REQUIREMENT",
+                  "text": "Al Engine:",
+                  "confidence": 0.75
+                }
+              ],
+              "kg_edges": [],
+              "kg_coverage": 1,
+              "kg_relationships": 0
+            }
+          },
+          "page_number": 3,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.09670329838991165,
+            "x_max": 0.1575654149055481,
+            "y_max": 0.10241758078336716
+          },
+          "chunk_id": "chunk_003",
+          "compliance_id": null
+        },
+        {
+          "test_id": "TC_012",
+          "title": "Verify Pricing Model Functionality",
+          "description": "As a user, I should be able to understand the pricing model for advanced features (if any)",
+          "category": "Functional Tests",
+          "priority": "High",
+          "derived_from": "REQ-001",
+          "expected_result": "The user should be able to clearly understand the pricing model. If a subscription is required for advanced features, this should be indicated.",
+          "compliance_standards": [],
+          "traceability": {
+            "requirement_id": "REQ-001",
+            "requirement_text": "Product Name: Al-powered PRD Reviewer",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.11717861145734787,
+                  "y_min": 0.10857142508029938,
+                  "x_max": 0.47497156262397766,
+                  "y_max": 0.17406593263149261
+                },
+                "chunk_id": "kg_node_REQ-001"
+              }
+            ],
+            "linked_edges": [
+              "REQ-004 \u2192 TC-004",
+              "TC-004 \u2192 COMP-001"
+            ],
+            "compliance_references": [
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100",
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100"
+            ],
+            "traceability_id": "TRACE_004",
+            "source_document": "Document chunk 4",
+            "confidence_score": 0.89,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-001",
+                  "type": "REQUIREMENT",
+                  "text": "Product Name: Al-powered PRD Reviewer",
+                  "confidence": 0.75
+                }
+              ],
+              "kg_edges": [
+                {
+                  "id": "EDGE_chunk_004_001",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_004_002",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_001",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_002",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_coverage": 1,
+              "kg_relationships": 4
+            }
+          },
+          "page_number": 7,
+          "bounding_box": {
+            "x_min": 0.1461888551712036,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8549488186836243,
+            "y_max": 0.21714285016059875
+          },
+          "chunk_id": "chunk_007",
+          "compliance_id": null
+        }
+      ],
+      "total_tests": 4
+    },
+    {
+      "category_name": "Integration Tests",
+      "category_icon": "\ud83d\udd17",
+      "test_cases": [
+        {
+          "test_id": "TC_007",
+          "title": "Verify Confluence Integration",
+          "description": "Connect to a Confluence instance via API. Upload a PRD from Confluence to the reviewer.",
+          "category": "Integration Tests",
+          "priority": "Medium",
+          "derived_from": "REQ-006",
+          "expected_result": "The PRD is successfully imported from Confluence to the Al-powered PRD Reviewer.",
+          "compliance_standards": [],
+          "traceability": {
+            "requirement_id": "REQ-006",
+            "requirement_text": "Actionable Feedback: Offer users targeted, constructive feedback to improve their",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.1473265141248703,
+                  "y_min": 0.7323076725006104,
+                  "x_max": 0.8788396120071411,
+                  "y_max": 0.7986813187599182
+                },
+                "chunk_id": "kg_node_REQ-006"
+              }
+            ],
+            "linked_edges": [
+              "REQ-001 \u2192 TC-001",
+              "TC-001 \u2192 COMP-002"
+            ],
+            "compliance_references": [
+              "HIPAA \u00a7164.312(a)(2)",
+              "FDA 21 CFR Part 11 Section 2",
+              "GDPR Article 2"
+            ],
+            "traceability_id": "TRACE_001",
+            "source_document": "Document chunk 1",
+            "confidence_score": 0.86,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-006",
+                  "type": "REQUIREMENT",
+                  "text": "Actionable Feedback: Offer users targeted, constructive feedback to improve their",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_edges": [],
+              "kg_coverage": 1,
+              "kg_relationships": 0
+            }
+          },
+          "page_number": 6,
+          "bounding_box": {
+            "x_min": 0.23435722291469574,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.6473265290260315,
+            "y_max": 0.1063736230134964
+          },
+          "chunk_id": "chunk_006",
+          "compliance_id": null
+        },
+        {
+          "test_id": "TC_008",
+          "title": "Verify API Authentication for Jira Integration",
+          "description": "Test API authentication by attempting to connect to a Jira instance with invalid credentials.",
+          "category": "Integration Tests",
+          "priority": "High",
+          "derived_from": "REQ-001",
+          "expected_result": "The system returns an authentication error and does not establish a connection with Jira.",
+          "compliance_standards": [],
+          "traceability": {
+            "requirement_id": "REQ-001",
+            "requirement_text": "Product Name: Al-powered PRD Reviewer",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.11717861145734787,
+                  "y_min": 0.10857142508029938,
+                  "x_max": 0.47497156262397766,
+                  "y_max": 0.17406593263149261
+                },
+                "chunk_id": "kg_node_REQ-001"
+              }
+            ],
+            "linked_edges": [
+              "REQ-002 \u2192 TC-002",
+              "TC-002 \u2192 COMP-003"
+            ],
+            "compliance_references": [
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100",
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100"
+            ],
+            "traceability_id": "TRACE_002",
+            "source_document": "Document chunk 2",
+            "confidence_score": 0.87,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-001",
+                  "type": "REQUIREMENT",
+                  "text": "Product Name: Al-powered PRD Reviewer",
+                  "confidence": 0.75
+                }
+              ],
+              "kg_edges": [
+                {
+                  "id": "EDGE_chunk_004_001",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_004_002",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_001",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_002",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_coverage": 1,
+              "kg_relationships": 4
+            }
+          },
+          "page_number": 6,
+          "bounding_box": {
+            "x_min": 0.23435722291469574,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.6473265290260315,
+            "y_max": 0.1063736230134964
+          },
+          "chunk_id": "chunk_006",
+          "compliance_id": null
+        }
+      ],
+      "total_tests": 2
+    },
+    {
+      "category_name": "Performance Tests",
+      "category_icon": "\u26a1",
+      "test_cases": [
+        {
+          "test_id": "TC_009",
+          "title": "Test Response Time for PRD Analysis",
+          "description": "Upload a large PRD document and measure the time taken for the AI to analyze and provide a grade.",
+          "category": "Performance Tests",
+          "priority": "Medium",
+          "derived_from": "REQ-007",
+          "expected_result": "The AI analyzes the PRD and generates a grade within an acceptable time frame (e.g., under 60 seconds).",
+          "compliance_standards": [],
+          "traceability": {
+            "requirement_id": "REQ-007",
+            "requirement_text": "Easy Integration: Allow users to paste their PRD text directly or upload their document",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.14675767719745636,
+                  "y_min": 0.8052747249603271,
+                  "x_max": 0.8686006665229797,
+                  "y_max": 0.8378021717071533
+                },
+                "chunk_id": "kg_node_REQ-007"
+              }
+            ],
+            "linked_edges": [
+              "REQ-001 \u2192 TC-001",
+              "TC-001 \u2192 COMP-002"
+            ],
+            "compliance_references": [
+              "HIPAA \u00a7164.312(a)(2)",
+              "FDA 21 CFR Part 11 Section 2",
+              "GDPR Article 2"
+            ],
+            "traceability_id": "TRACE_001",
+            "source_document": "Document chunk 1",
+            "confidence_score": 0.86,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-007",
+                  "type": "REQUIREMENT",
+                  "text": "Easy Integration: Allow users to paste their PRD text directly or upload their document",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_edges": [],
+              "kg_coverage": 1,
+              "kg_relationships": 0
+            }
+          },
+          "page_number": 1,
+          "bounding_box": {
+            "x_min": 0.11717861145734787,
+            "y_min": 0.10857142508029938,
+            "x_max": 0.47497156262397766,
+            "y_max": 0.17406593263149261
+          },
+          "chunk_id": "chunk_001",
+          "compliance_id": null
+        },
+        {
+          "test_id": "TC_010",
+          "title": "Simulate Concurrent Users Accessing the System",
+          "description": "Simulate 50 concurrent users uploading and analyzing PRD documents. Monitor system performance and response times.",
+          "category": "Performance Tests",
+          "priority": "High",
+          "derived_from": "REQ-002",
+          "expected_result": "The system maintains acceptable performance and response times under load, with no significant degradation in service.",
+          "compliance_standards": [],
+          "traceability": {
+            "requirement_id": "REQ-002",
+            "requirement_text": "The tool allows users to upload or paste a PRD, then analyzes and grades the",
+            "pdf_locations": [
+              {
+                "page_number": 1,
+                "bounding_box": {
+                  "x_min": 0.11717861145734787,
+                  "y_min": 0.32131868600845337,
+                  "x_max": 0.8674630522727966,
+                  "y_max": 0.3894505500793457
+                },
+                "chunk_id": "kg_node_REQ-002"
+              }
+            ],
+            "linked_edges": [
+              "REQ-002 \u2192 TC-002",
+              "TC-002 \u2192 COMP-003"
+            ],
+            "compliance_references": [
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100",
+              "GDPR:2016/679",
+              "CCPA:CA-CIV-1798.100"
+            ],
+            "traceability_id": "TRACE_002",
+            "source_document": "Document chunk 2",
+            "confidence_score": 0.87,
+            "kg_mapping": {
+              "kg_nodes": [
+                {
+                  "id": "REQ-002",
+                  "type": "REQUIREMENT",
+                  "text": "The tool allows users to upload or paste a PRD, then analyzes and grades the",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_edges": [
+                {
+                  "id": "EDGE_chunk_004_003",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_004_004",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_003",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_002",
+                  "confidence": 0.7
+                },
+                {
+                  "id": "EDGE_chunk_005_004",
+                  "relation": "REQUIRES_COMPLIANCE",
+                  "to": "COMP_003",
+                  "confidence": 0.7
+                }
+              ],
+              "kg_coverage": 1,
+              "kg_relationships": 4
+            }
+          },
+          "page_number": 2,
+          "bounding_box": {
+            "x_min": 0.14675767719745636,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8794084191322327,
+            "y_max": 0.12527473270893097
+          },
+          "chunk_id": "chunk_002",
+          "compliance_id": null
+        }
+      ],
+      "total_tests": 2
+    }
+  ],
+  "pdf_outline": {
+    "total_pages": 7,
+    "pages": [
+      {
+        "page_number": 1,
+        "sections": [
+          {
+            "section_id": "chunk_001",
+            "text_preview": "Product Requirements Document (PRD)\nProduct Name: Al-powered PRD Reviewer\nOwner: [PERSON_NAME]\nDate:...",
+            "has_requirements": true,
+            "has_compliance": false,
+            "has_pii": true
+          }
+        ],
+        "has_requirements": true,
+        "has_compliance": false,
+        "has_pii": true
+      },
+      {
+        "page_number": 2,
+        "sections": [
+          {
+            "section_id": "chunk_002",
+            "text_preview": "5. Enhance pmprompt.com's Reputation: Position pmprompt.com as a go-to platform for\nbest-in-class pr...",
+            "has_requirements": true,
+            "has_compliance": false,
+            "has_pii": false
+          }
+        ],
+        "has_requirements": true,
+        "has_compliance": false,
+        "has_pii": false
+      },
+      {
+        "page_number": 3,
+        "sections": [
+          {
+            "section_id": "chunk_003",
+            "text_preview": "\u2022\n\nSection-Level Insights: Offer specific suggestions to improve or enrich each section\n(e.g., \"Add ...",
+            "has_requirements": true,
+            "has_compliance": false,
+            "has_pii": false
+          }
+        ],
+        "has_requirements": true,
+        "has_compliance": false,
+        "has_pii": false
+      },
+      {
+        "page_number": 4,
+        "sections": [
+          {
+            "section_id": "chunk_004",
+            "text_preview": "\u2022 User Privacy: Option to remove user-submitted content after analysis or keep it\nanonymized for Al ...",
+            "has_requirements": true,
+            "has_compliance": true,
+            "has_pii": false
+          }
+        ],
+        "has_requirements": true,
+        "has_compliance": true,
+        "has_pii": false
+      },
+      {
+        "page_number": 5,
+        "sections": [
+          {
+            "section_id": "chunk_005",
+            "text_preview": "\u2022\n\nMinimum Document Requirements: Documents require some level of structure\n(headers, bullet points)...",
+            "has_requirements": true,
+            "has_compliance": true,
+            "has_pii": false
+          }
+        ],
+        "has_requirements": true,
+        "has_compliance": true,
+        "has_pii": false
+      },
+      {
+        "page_number": 6,
+        "sections": [
+          {
+            "section_id": "chunk_006",
+            "text_preview": "Integration with Confluence/Jira/Notion (API-based).\n\n\u039f\n\n\u039f\n\nMulti-language support.\n\n\u039f\n\nExpansion of...",
+            "has_requirements": true,
+            "has_compliance": false,
+            "has_pii": false
+          }
+        ],
+        "has_requirements": true,
+        "has_compliance": false,
+        "has_pii": false
+      },
+      {
+        "page_number": 7,
+        "sections": [
+          {
+            "section_id": "chunk_007",
+            "text_preview": "1. Pricing Model: Will the Al-based PRD Reviewer remain free or require a subscription\ntier for adva...",
+            "has_requirements": true,
+            "has_compliance": false,
+            "has_pii": false
+          }
+        ],
+        "has_requirements": true,
+        "has_compliance": false,
+        "has_pii": false
+      }
+    ],
+    "summary": {
+      "pages_with_requirements": 7,
+      "pages_with_compliance": 2,
+      "pages_with_pii": 1
+    }
+  },
+  "statistics": {
+    "total_tests": 12,
+    "total_categories": 5,
+    "priority_breakdown": {
+      "Critical": 2,
+      "High": 6,
+      "Medium": 4,
+      "Low": 0
+    },
+    "compliance_coverage": 1,
+    "requirements_covered": 9
+  },
+  "coverage_analysis": {
+    "status": "success",
+    "coverage_score": 20.0,
+    "total_requirements": 12,
+    "total_compliance_standards": 3,
+    "total_tests": 12,
+    "test_distribution": {
+      "Security Tests": 2,
+      "Compliance Tests": 2,
+      "Functional Tests": 4,
+      "Integration Tests": 2,
+      "Performance Tests": 2
+    },
+    "coverage_gaps": [
+      {
+        "type": "insufficient_test_density",
+        "message": "Only 1.0 tests per requirement (recommended: 2+)",
+        "severity": "medium"
+      },
+      {
+        "type": "compliance_coverage_gap",
+        "message": "Only 2 compliance tests for 3 standards",
+        "severity": "high"
+      },
+      {
+        "type": "security_coverage_gap",
+        "message": "Only 2 security tests (recommended: 3+)",
+        "severity": "high"
+      }
+    ],
+    "recommendations": [
+      "Generate more test cases to improve requirement coverage",
+      "Add more compliance test cases",
+      "Add more security test cases for comprehensive coverage"
+    ],
+    "kg_utilization": {
+      "requirements_mapped": 12,
+      "total_kg_nodes": 15,
+      "total_kg_edges": 14
+    }
+  }
+}

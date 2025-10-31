@@ -1,0 +1,130 @@
+
+================================================================================
+📊 PRD-7 BOUNDING BOX VERIFICATION REPORT
+================================================================================
+
+## SUMMARY
+Total Requirements: 12
+✅ Passed: 0
+⚠️  Warnings: 9
+❌ Failed: 3
+Pass Rate: 0.0%
+
+================================================================================
+## SECTION 1: REQUIREMENT TEXT QUALITY ANALYSIS
+================================================================================
+Req ID          Length   Complete?    Modal?   Quality    Status    
+--------------------------------------------------------------------------------
+REQ-001         37       No           No       75         FAIL      
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-004         90       No           No       60         FAIL      
+  ⚠️  Missing ending punctuation - possibly incomplete
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-005         79       No           No       60         FAIL      
+  ⚠️  Missing ending punctuation - possibly incomplete
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-002         76       No           No       60         FAIL      
+  ⚠️  Missing ending punctuation - possibly incomplete
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-003         81       No           No       55         FAIL      
+  ⚠️  Missing ending punctuation - possibly incomplete
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-008         77       No           Yes      80         FAIL      
+  ⚠️  Missing ending punctuation - possibly incomplete
+REQ-009         10       No           No       40         FAIL      
+  ⚠️  Too short (10 chars) - likely incomplete
+  ⚠️  Type is MODAL_VERB but no modal verb found
+  ⚠️  Too few words (2) - likely a fragment
+REQ-001         37       No           No       75         FAIL      
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-006         81       No           No       60         FAIL      
+  ⚠️  Missing ending punctuation - possibly incomplete
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-001         37       No           No       75         FAIL      
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-007         87       No           No       60         FAIL      
+  ⚠️  Missing ending punctuation - possibly incomplete
+  ⚠️  Type is MODAL_VERB but no modal verb found
+REQ-002         76       No           No       60         FAIL      
+  ⚠️  Missing ending punctuation - possibly incomplete
+  ⚠️  Type is MODAL_VERB but no modal verb found
+
+================================================================================
+## SECTION 2: BOUNDING BOX LOCATION ACCURACY
+================================================================================
+Req ID          Page   Bbox Valid?  Text Match   Similarity   Status    
+--------------------------------------------------------------------------------
+REQ-001         1      Yes          FAIL         49.0%        WARNING   
+REQ-004         1      Yes          FAIL         60.3%        WARNING   
+REQ-005         1      Yes          FAIL         44.6%        FAIL      
+REQ-002         1      Yes          FAIL         38.5%        WARNING   
+REQ-003         1      Yes          FAIL         57.6%        FAIL      
+REQ-008         2      Yes          PASS         85.6%        FAIL      
+REQ-009         3      Yes          PASS         90.0%        WARNING   
+REQ-001         1      Yes          FAIL         49.0%        WARNING   
+REQ-006         1      Yes          FAIL         47.6%        WARNING   
+REQ-001         1      Yes          FAIL         49.0%        WARNING   
+REQ-007         1      Yes          FAIL         77.3%        WARNING   
+REQ-002         1      Yes          FAIL         38.5%        WARNING   
+
+================================================================================
+## SECTION 3: DETAILED ISSUES & FAILURES
+================================================================================
+
+### FAILURES:
+
+❌ TC_003 - REQ-005
+   Expected: Competitive advantage: Existing tools often focus on grammar and spell-checking...
+   Extracted: Competitive advantage: Existing tools often focus on grammar and spell-checking
+...
+   Issue in text_quality: Unknown
+   - Missing ending punctuation - possibly incomplete
+   - Type is MODAL_VERB but no modal verb found
+   Issue in text_match: Low similarity (44.63%)
+
+❌ TC_005 - REQ-003
+   Expected: • PRDs are central to product development: A well-written PRD aligns teams aroun...
+   Extracted: ●
+PRDs are central to product development: A well-written PRD aligns teams aroun...
+   Issue in text_quality: Unknown
+   - Missing ending punctuation - possibly incomplete
+   - Type is MODAL_VERB but no modal verb found
+   Issue in text_match: Low similarity (57.55%)
+
+❌ TC_006 - REQ-008
+   Expected: Customizable Grading Rubric: Admins or advanced users can tweak weighting for...
+   Extracted: Customizable Grading Rubric: Admins or advanced users can tweak weighting for
+di...
+   Issue in text_quality: Unknown
+   - Missing ending punctuation - possibly incomplete
+
+### WARNINGS:
+
+⚠️  TC_001 - REQ-001
+   - No ending punctuation
+
+⚠️  TC_002 - REQ-004
+
+⚠️  TC_004 - REQ-002
+
+⚠️  TC_011 - REQ-009
+
+⚠️  TC_012 - REQ-001
+   - No ending punctuation
+
+⚠️  TC_007 - REQ-006
+
+⚠️  TC_008 - REQ-001
+   - No ending punctuation
+
+⚠️  TC_009 - REQ-007
+
+⚠️  TC_010 - REQ-002
+
+================================================================================
+## SECTION 4: SUCCESSFUL VERIFICATIONS
+================================================================================
+
+================================================================================
+END OF REPORT
+================================================================================

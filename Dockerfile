@@ -4,6 +4,9 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
+# Add /app to PYTHONPATH so modules can be imported
+ENV PYTHONPATH=/app
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -16,8 +19,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY api_server_modular.py ./api_server.py
-COPY modules/ ./modules/
+COPY api_server_modular.py ./
+COPY modules ./modules
+COPY mockData ./mockData
 
 # Set environment variables
 ENV PROJECT_ID=poc-genai-hacks
@@ -30,9 +34,14 @@ ENV GEMINI_MODEL=gemini-2.0-flash-001
 ENV DLP_LOCATION=us
 ENV PORT=8080
 
+# Context expansion configuration (NEW!)
+ENV ENABLE_CONTEXT_EXPANSION=true
+ENV MAX_EXPANSION_SENTENCES=3
+ENV MAX_EXPANSION_CHARS=300
+
 # Expose port
 EXPOSE 8080
 
 # Run the FastAPI server
-CMD exec uvicorn api_server:app --host 0.0.0.0 --port ${PORT}
+CMD exec uvicorn api_server_modular:app --host 0.0.0.0 --port ${PORT}
 

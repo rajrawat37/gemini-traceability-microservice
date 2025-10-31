@@ -1,0 +1,1047 @@
+{
+  "status": "success",
+  "agent": "Document AI",
+  "source_document": {
+    "name": "PRD-7.pdf",
+    "id": "doc_20251027_102247",
+    "processed_at": "2025-10-27T10:22:47+00:00"
+  },
+  "chunks": [
+    {
+      "chunk_id": "chunk_001",
+      "labels": [
+        "PERFORMANCE"
+      ],
+      "page_number": 1,
+      "text": "Product Requirements Document (PRD)\nProduct Name: Al-powered PRD Reviewer\nOwner: Andy Brudtkuhl\nDate: 1/6/2025\n\n1. Overview\n\n1.1 Purpose\n\nThis document outlines the requirements for an Al-based PRD Reviewer, a new tool offered by\npmprompt.com. The tool allows users to upload or paste a PRD, then analyzes and grades the\ncontent. It also provides actionable feedback to improve clarity, completeness, and alignment\nwith best practices in product management.\n\n1.2 Background & Rationale\n\n\u2022 PRDs are central to product development: A well-written PRD aligns teams around\ngoals, requirements, and success metrics. However, writing and reviewing PRDs can be\ntime-consuming and subjective.\n\n\u2022\n\n\u2022\n\nAl-driven assistance: With the increasing availability of Al solutions, there is a growing\nopportunity to automate and enhance document review processes, particularly for\nstructured documents like PRDs.\nCompetitive advantage: Existing tools often focus on grammar and spell-checking\nrather than product-management best practices. By providing a specialized Al-based\nPRD Reviewer, pmprompt.com can address a niche in the market and become an\nessential resource for product teams.\n\n2. Goals & Objectives\n\n1. Automate PRD Review: Provide an automated solution that reviews and grades PRDs\nfor completeness, clarity, and alignment with standard product management frameworks.\n2. Actionable Feedback: Offer users targeted, constructive feedback to improve their\nPRDs.\n3. Easy Integration: Allow users to paste their PRD text directly or upload their document\n(e.g., .docx, .pdf, .txt) for instant analysis.\n4. Scalable & Robust: Ensure the solution can handle varying document lengths and\ncomplexities without significant performance degradation.",
+      "confidence": 0.9425799697637558,
+      "text_anchor": {
+        "start": 0,
+        "end": 1724
+      },
+      "bounding_box": {
+        "x_min": 0.11717861145734787,
+        "y_min": 0.10857142508029938,
+        "x_max": 0.47497156262397766,
+        "y_max": 0.17406593263149261
+      },
+      "detected_requirements": [
+        {
+          "id": "REQ-001",
+          "text": "Product Name: Al-powered PRD Reviewer",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.11717861145734787,
+            "y_min": 0.10857142508029938,
+            "x_max": 0.47497156262397766,
+            "y_max": 0.17406593263149261
+          }
+        },
+        {
+          "id": "REQ-002",
+          "text": "The tool allows users to upload or paste a PRD, then analyzes and grades the content. It also provides actionable feedback to improve clarity, completeness, and alignment with best practices in product management.",
+          "type": "ACTION_VERB",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.11717861145734787,
+            "y_min": 0.32131868600845337,
+            "x_max": 0.8674630522727966,
+            "y_max": 0.3894505500793457
+          }
+        },
+        {
+          "id": "REQ-003",
+          "text": "\u2022 PRDs are central to product development: A well-written PRD aligns teams around",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.14789533615112305,
+            "y_min": 0.44923076033592224,
+            "x_max": 0.8742889761924744,
+            "y_max": 0.49934065341949463
+          }
+        },
+        {
+          "id": "REQ-004",
+          "text": "Al-driven assistance: With the increasing availability of Al solutions, there is a growing",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.1757679134607315,
+            "y_min": 0.5046153664588928,
+            "x_max": 0.8697383403778076,
+            "y_max": 0.5516483783721924
+          }
+        },
+        {
+          "id": "REQ-005",
+          "text": "Competitive advantage: Existing tools often focus on grammar and spell-checking",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.1769055724143982,
+            "y_min": 0.5595604181289673,
+            "x_max": 0.8475540280342102,
+            "y_max": 0.6281318664550781
+          }
+        },
+        {
+          "id": "REQ-006",
+          "text": "Actionable Feedback: Offer users targeted, constructive feedback to improve their PRDs.",
+          "type": "ACTION_VERB",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.7323076725006104,
+            "x_max": 0.8788396120071411,
+            "y_max": 0.7986813187599182
+          }
+        },
+        {
+          "id": "REQ-007",
+          "text": "Easy Integration: Allow users to paste their PRD text directly or upload their document (e.g., .docx, .pdf, .txt) for instant analysis.",
+          "type": "ACTION_VERB",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.14675767719745636,
+            "y_min": 0.8052747249603271,
+            "x_max": 0.8686006665229797,
+            "y_max": 0.8378021717071533
+          }
+        }
+      ],
+      "source": "PRD-7.pdf"
+    },
+    {
+      "chunk_id": "chunk_002",
+      "labels": [
+        "PERFORMANCE",
+        "FUNCTIONAL_REQUIREMENT",
+        "TECHNICAL"
+      ],
+      "page_number": 2,
+      "text": "5. Enhance pmprompt.com's Reputation: Position pmprompt.com as a go-to platform for\nbest-in-class product management tools and resources.\n\n3. Target Audience & User Personas\n\n1. Product Managers: Need a quick method to validate and improve their PRDs; want to\nensure they adhere to best practices.\n2. Entrepreneurs & Founders: May be less experienced in formal PRD writing and seek\nguidance on structure and completeness.\n3. Product Management Students/Enthusiasts: Looking for tutorials and feedback on\nPRD composition to refine their skills.\n4. Cross-Functional Teams: Engineers, Designers, or Marketers who need to verify if a\nPRD is well-structured and provides enough clarity for their respective roles.\n\n4. Key Features & Functionality\n\n4.1 Document Upload & Parsing\n\n\u2022 File Upload: Support for .docx, .pdf, and .txt formats.\n\n\u2022\n\n\u2022\n\nText Paste: Users can directly paste their PRD content into a text editor.\nParsing & Formatting: Al-powered parsing to handle headings, bullet points, and other\nstructural elements.\n\n4.2 Al-Driven Analysis & Grading\n\n\u2022\n\n\u2022\n\nFine-Tuned Al Models: Custom-trained NLP models specifically for PRD evaluation.\nStructural Analysis: Check for essential PRD sections (e.g., Goals, Scope,\nRequirements, Success Metrics).\n\u2022 Clarity & Readability: Use text analysis to flag unclear statements, jargon, or\nambiguous requirements.\n\n\u2022\n\n\u2022\n\nCompleteness Score: Based on the presence of standard PRD components, such as\nuser personas, success metrics, and risk assessments.\nCustomizable Grading Rubric: Admins or advanced users can tweak weighting for\ndifferent PRD components.\n\n4.3 Feedback & Recommendations\n\n\u2022 Immediate Feedback: Provide a summarized report showing scores across different\ncategories (e.g., Clarity, Completeness, Coherence).",
+      "confidence": 1.0,
+      "text_anchor": {
+        "start": 1724,
+        "end": 3474
+      },
+      "bounding_box": {
+        "x_min": 0.14675767719745636,
+        "y_min": 0.09318681061267853,
+        "x_max": 0.8794084191322327,
+        "y_max": 0.12527473270893097
+      },
+      "detected_requirements": [
+        {
+          "id": "REQ-001",
+          "text": "Entrepreneurs & Founders: May be less experienced in formal PRD writing and seek guidance on structure and completeness.",
+          "type": "MODAL_VERB",
+          "confidence": 0.85,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.266813188791275,
+            "x_max": 0.8634812235832214,
+            "y_max": 0.29846152663230896
+          }
+        },
+        {
+          "id": "REQ-002",
+          "text": "Text Paste: Users can directly paste their PRD content into a text editor.",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.5345054864883423,
+            "x_max": 0.8731513023376465,
+            "y_max": 0.5815384387969971
+          }
+        },
+        {
+          "id": "REQ-003",
+          "text": "Parsing & Formatting: Al-powered parsing to handle headings, bullet points, and other",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.5345054864883423,
+            "x_max": 0.8731513023376465,
+            "y_max": 0.5815384387969971
+          }
+        },
+        {
+          "id": "REQ-004",
+          "text": "Fine-Tuned Al Models: Custom-trained NLP models specifically for PRD evaluation.",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.6443955898284912,
+            "x_max": 0.8481228947639465,
+            "y_max": 0.6940659284591675
+          }
+        },
+        {
+          "id": "REQ-005",
+          "text": "Structural Analysis: Check for essential PRD sections (e.g., Goals, Scope,",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.6443955898284912,
+            "x_max": 0.8481228947639465,
+            "y_max": 0.6940659284591675
+          }
+        },
+        {
+          "id": "REQ-006",
+          "text": "\u2022 Clarity & Readability: Use text analysis to flag unclear statements, jargon, or ambiguous requirements.",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.14789533615112305,
+            "y_min": 0.6975824236869812,
+            "x_max": 0.7923777103424072,
+            "y_max": 0.7305494546890259
+          }
+        },
+        {
+          "id": "REQ-007",
+          "text": "Completeness Score: Based on the presence of standard PRD components, such as",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.7353846430778503,
+            "x_max": 0.8600682616233826,
+            "y_max": 0.767472505569458
+          }
+        },
+        {
+          "id": "REQ-008",
+          "text": "Customizable Grading Rubric: Admins or advanced users can tweak weighting for",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.7723076939582825,
+            "x_max": 0.8435722589492798,
+            "y_max": 0.8039560317993164
+          }
+        }
+      ],
+      "source": "PRD-7.pdf"
+    },
+    {
+      "chunk_id": "chunk_003",
+      "labels": [
+        "SECURITY",
+        "PERFORMANCE",
+        "TECHNICAL"
+      ],
+      "page_number": 3,
+      "text": "\u2022\n\nSection-Level Insights: Offer specific suggestions to improve or enrich each section\n(e.g., \"Add user personas\u201d or \u201cClarify success metrics\").\n\u2022 Best Practices Library: Allow users to browse relevant examples or best practices for\neach flagged issue.\n\n4.4 Versioning & Comparison\n\n\u2022\n\nDocument History: Track versions of uploaded documents to show progress over time.\n\u2022 Side-by-Side Comparisons: Compare older versions of the PRD with new ones to see\nimprovements.\n\n4.5 Integration & Collaboration\n\n\u2022\n\nCollaboration: Option to share annotated PRD feedback with team members.\n\u2022 Third-Party Integrations (Future scope): Potential APIs or plugins for popular product\nmanagement and documentation tools (e.g., Confluence, Jira, Notion).\n\n5. Technical Requirements\n\n5.1 Architecture\n\n\u2022 Frontend: A web-based interface (React, Vue, or similar) embedded within\npmprompt.com.\n\u2022 Backend: Cloud-based server-side application (Node.js, Python, or similar) with an Al\n\n\u2022\n\nengine for text analysis.\n\nAl Engine:\n\n\u039f\n\nFine-tuned NLP model (e.g., GPT-based or other leading large language\nmodels).\n\u039f Scalable via containerization (Docker, Kubernetes) to handle variable load.\n\n5.2 Performance & Scalability\n\n\u2022\n\nResponse Time: Under 10 seconds for documents < 10 pages, scaling gracefully for\nlarger documents.\n\u2022 High Availability: Target 99.9% uptime with robust error handling and fallback\nmechanisms.\n\n5.3 Security & Privacy\n\n\u2022 Data Encryption: Secure data transfer (HTTPS) and encrypted storage for uploaded\ndocuments.",
+      "confidence": 1.0,
+      "text_anchor": {
+        "start": 3474,
+        "end": 4961
+      },
+      "bounding_box": {
+        "x_min": 0.1473265141248703,
+        "y_min": 0.09670329838991165,
+        "x_max": 0.1575654149055481,
+        "y_max": 0.10241758078336716
+      },
+      "detected_requirements": [
+        {
+          "id": "REQ-001",
+          "text": "Section-Level Insights: Offer specific suggestions to improve or enrich each section",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8503981828689575,
+            "y_max": 0.12527473270893097
+          }
+        },
+        {
+          "id": "REQ-002",
+          "text": "\u2022 Best Practices Library: Allow users to browse relevant examples or best practices for each flagged issue.",
+          "type": "ACTION_VERB",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.14789533615112305,
+            "y_min": 0.12967033684253693,
+            "x_max": 0.8634812235832214,
+            "y_max": 0.16175824403762817
+          }
+        },
+        {
+          "id": "REQ-003",
+          "text": "Document History: Track versions of uploaded documents to show progress over time.",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.22197802364826202,
+            "x_max": 0.8731513023376465,
+            "y_max": 0.271208792924881
+          }
+        },
+        {
+          "id": "REQ-004",
+          "text": "\u2022 Side-by-Side Comparisons: Compare older versions of the PRD with new ones to see improvements.",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.22197802364826202,
+            "x_max": 0.8731513023376465,
+            "y_max": 0.271208792924881
+          }
+        },
+        {
+          "id": "REQ-005",
+          "text": "Collaboration: Option to share annotated PRD feedback with team members.",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.33142855763435364,
+            "x_max": 0.7957906723022461,
+            "y_max": 0.3437362611293793
+          }
+        },
+        {
+          "id": "REQ-006",
+          "text": "\u2022 Third-Party Integrations (Future scope): Potential APIs or plugins for popular product management and documentation tools (e.g., Confluence, Jira, Notion).",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.34901097416877747,
+            "x_max": 0.8623435497283936,
+            "y_max": 0.3810988962650299
+          }
+        },
+        {
+          "id": "REQ-007",
+          "text": "\u2022 Frontend: A web-based interface (React, Vue, or similar) embedded within",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.5243955850601196,
+            "x_max": 0.7696245908737183,
+            "y_max": 0.5569230914115906
+          }
+        },
+        {
+          "id": "REQ-008",
+          "text": "\u2022 Backend: Cloud-based server-side application (Node.js, Python, or similar) with an Al \u2022 engine for text analysis.",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.5617582201957703,
+            "x_max": 0.8555176258087158,
+            "y_max": 0.5758242011070251
+          }
+        },
+        {
+          "id": "REQ-009",
+          "text": "Al Engine:",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17406143248081207,
+            "y_min": 0.5986813306808472,
+            "x_max": 0.26279863715171814,
+            "y_max": 0.611868143081665
+          }
+        },
+        {
+          "id": "REQ-010",
+          "text": "Response Time: Under 10 seconds for documents < 10 pages, scaling gracefully for",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17463025450706482,
+            "y_min": 0.7265934348106384,
+            "x_max": 0.852104663848877,
+            "y_max": 0.7582417726516724
+          }
+        },
+        {
+          "id": "REQ-011",
+          "text": "\u2022 High Availability: Target 99.9% uptime with robust error handling and fallback mechanisms.",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.14789533615112305,
+            "y_min": 0.763076901435852,
+            "x_max": 0.7980659604072571,
+            "y_max": 0.7925274968147278
+          }
+        },
+        {
+          "id": "REQ-012",
+          "text": "\u2022 Data Encryption: Secure data transfer (HTTPS) and encrypted storage for uploaded",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.14789533615112305,
+            "y_min": 0.8549450635910034,
+            "x_max": 0.849829375743866,
+            "y_max": 0.8835164904594421
+          }
+        }
+      ],
+      "source": "PRD-7.pdf"
+    },
+    {
+      "chunk_id": "chunk_004",
+      "labels": [
+        "PERFORMANCE",
+        "COMPLIANCE",
+        "FUNCTIONAL_REQUIREMENT"
+      ],
+      "page_number": 4,
+      "text": "\u2022 User Privacy: Option to remove user-submitted content after analysis or keep it\nanonymized for Al model improvements (with explicit user consent).\n\u2022 Compliance: Adhere to relevant data protection regulations (GDPR, CCPA, etc.).\n\n6. User Flow\n\n1. Login/Access: User logs into pmprompt.com or navigates to the Al-based PRD\nReviewer tool.\n2. Upload or Paste Document: User either uploads a file or pastes the PRD text.\n3. Review & Analysis: The Al engine processes the text, identifying and scoring key\nsections.\n4. Feedback: A summary score and section-by-section suggestions are displayed.\n\n5.\n\nEdit & Iterate: Users can incorporate feedback, then re-upload or re-paste to see\nimprovement.\n6. Export/Share: User may export the feedback report or share a link with collaborators.\n\n7. Success Metrics\n\n1. User Adoption & Engagement\n\n\u039f\n\n\u039f\n\nNumber of unique users running PRD analysis weekly/monthly.\n\nAverage session length during analysis.\n\n2. Feedback Quality\n\n\u039f\n\n\u039f\n\nUser-reported satisfaction via ratings or surveys.\nPercentage of feedback suggestions incorporated by users.\n\n3. Retention & Conversion\n\n\u039f\n\n\u039f\n\nConversion rate of free users to premium plans if any advanced features are\nsubscription-based.\nFrequency of returning users who analyze multiple PRDs.\n\n4. Time Savings\n\n\u039f\n\nReduction in time spent by product managers on manual reviews (anecdotal or\nsurvey-based metric).\n\n8. Constraints & Assumptions\n\n\u2022 Al Limitations: The Al may occasionally produce inaccurate or incomplete feedback\ndue to training data constraints. A human review is still recommended for critical\ndocuments.",
+      "confidence": 0.9516818785306179,
+      "text_anchor": {
+        "start": 4961,
+        "end": 6528
+      },
+      "bounding_box": {
+        "x_min": 0.1473265141248703,
+        "y_min": 0.09318681061267853,
+        "x_max": 0.8208191394805908,
+        "y_max": 0.14373625814914703
+      },
+      "detected_compliance": [
+        {
+          "name": "GDPR",
+          "canonical_id": "GDPR:2016/679"
+        },
+        {
+          "name": "CCPA",
+          "canonical_id": "CCPA:CA-CIV-1798.100"
+        }
+      ],
+      "detected_requirements": [
+        {
+          "id": "REQ-001",
+          "text": "\u2022 User Privacy: Option to remove user-submitted content after analysis or keep it anonymized for Al model improvements (with explicit user consent).",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8100113868713379,
+            "y_max": 0.12527473270893097
+          }
+        },
+        {
+          "id": "REQ-002",
+          "text": "\u2022 Compliance: Adhere to relevant data protection regulations (GDPR, CCPA, etc.).",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.14789533615112305,
+            "y_min": 0.12967033684253693,
+            "x_max": 0.8208191394805908,
+            "y_max": 0.14373625814914703
+          }
+        },
+        {
+          "id": "REQ-003",
+          "text": "Edit & Iterate: Users can incorporate feedback, then re-upload or re-paste to see",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17349261045455933,
+            "y_min": 0.358681321144104,
+            "x_max": 0.8213879466056824,
+            "y_max": 0.3898901045322418
+          }
+        },
+        {
+          "id": "REQ-004",
+          "text": "Export/Share: User may export the feedback report or share a link with collaborators.",
+          "type": "MODAL_VERB",
+          "confidence": 0.85,
+          "bounding_box": {
+            "x_min": 0.14789533615112305,
+            "y_min": 0.3951648473739624,
+            "x_max": 0.8560864329338074,
+            "y_max": 0.4087912142276764
+          }
+        },
+        {
+          "id": "REQ-005",
+          "text": "\u2022 Al Limitations: The Al may occasionally produce inaccurate or incomplete feedback",
+          "type": "MODAL_VERB",
+          "confidence": 0.85,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.8523076772689819,
+            "x_max": 0.8481228947639465,
+            "y_max": 0.8993406295776367
+          }
+        }
+      ],
+      "source": "PRD-7.pdf",
+      "trace_links": [
+        {
+          "edge_id": "edge_001",
+          "source": "REQ-001",
+          "source_type": "detected_requirement",
+          "target": "GDPR:2016/679",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_002",
+          "source": "REQ-001",
+          "source_type": "detected_requirement",
+          "target": "CCPA:CA-CIV-1798.100",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_003",
+          "source": "REQ-002",
+          "source_type": "detected_requirement",
+          "target": "GDPR:2016/679",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_004",
+          "source": "REQ-002",
+          "source_type": "detected_requirement",
+          "target": "CCPA:CA-CIV-1798.100",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_005",
+          "source": "REQ-003",
+          "source_type": "detected_requirement",
+          "target": "GDPR:2016/679",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_006",
+          "source": "REQ-003",
+          "source_type": "detected_requirement",
+          "target": "CCPA:CA-CIV-1798.100",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_007",
+          "source": "REQ-004",
+          "source_type": "detected_requirement",
+          "target": "GDPR:2016/679",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_008",
+          "source": "REQ-004",
+          "source_type": "detected_requirement",
+          "target": "CCPA:CA-CIV-1798.100",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_009",
+          "source": "REQ-005",
+          "source_type": "detected_requirement",
+          "target": "GDPR:2016/679",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        },
+        {
+          "edge_id": "edge_010",
+          "source": "REQ-005",
+          "source_type": "detected_requirement",
+          "target": "CCPA:CA-CIV-1798.100",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 4
+        }
+      ]
+    },
+    {
+      "chunk_id": "chunk_005",
+      "labels": [
+        "SECURITY",
+        "PERFORMANCE",
+        "COMPLIANCE",
+        "FUNCTIONAL_REQUIREMENT"
+      ],
+      "page_number": 5,
+      "text": "\u2022\n\nMinimum Document Requirements: Documents require some level of structure\n(headers, bullet points) for optimal analysis.\n\u2022 Initial Language Support: English as the primary language. Additional language\nsupport may be added in future iterations.\n\n9. Risks & Mitigations\n\nRisk\n\nAl Model Inaccuracies\nRegular model retraining and user feedback loops.\nUser Privacy Concerns\nEncrypt all data, give options to delete submissions.\nPerformance\nBottlenecks\nImplement load balancing and container orchestration.\nOver-reliance on Al\nEncourage users to consider the Al as a supplement, not a\nreplacement for expert review.\nComplex Document\nStructures\nImplement robust parsing logic to handle various formats.\n\nMitigation\n\n10. Timeline & Roadmap\n\n1. MVP (Month 1-2)\n\n\u039f\n\n\u039f\n\nBasic upload/paste functionality.\n\nCore Al-based grading (focus on structure, completeness).\n\n\u039f\n\nFeedback summary and key recommendation points.\n2. Enhanced Beta (Month 3-4)\n\n\u039f\n\n\u039f\n\n\u039f\n\nSection-by-section detailed feedback.\n\nSupport for multiple file formats.\n\nUser permissions, collaboration tools (shareable links).\n3. Full Release (Month 5-6)\n\n\u039f\n\n\u039f\n\nVersioning & comparison feature.\n\nAdvanced analytics and deeper insight on user personas, success metrics, etc.\n\n\u039f Enhanced security & privacy features (GDPR/CCPA compliance).\n\n4. Future Improvements",
+      "confidence": 0.9569949395954609,
+      "text_anchor": {
+        "start": 6528,
+        "end": 7816
+      },
+      "bounding_box": {
+        "x_min": 0.1473265141248703,
+        "y_min": 0.09670329838991165,
+        "x_max": 0.1575654149055481,
+        "y_max": 0.10241758078336716
+      },
+      "detected_compliance": [
+        {
+          "name": "GDPR",
+          "canonical_id": "GDPR:2016/679"
+        },
+        {
+          "name": "CCPA",
+          "canonical_id": "CCPA:CA-CIV-1798.100"
+        }
+      ],
+      "detected_requirements": [
+        {
+          "id": "REQ-001",
+          "text": "Minimum Document Requirements: Documents require some level of structure",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17519909143447876,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8191125988960266,
+            "y_max": 0.12483516335487366
+          }
+        },
+        {
+          "id": "REQ-002",
+          "text": "support may be added in future iterations.",
+          "type": "MODAL_VERB",
+          "confidence": 0.85,
+          "bounding_box": {
+            "x_min": 0.14789533615112305,
+            "y_min": 0.13010989129543304,
+            "x_max": 0.8202502727508545,
+            "y_max": 0.1621977984905243
+          }
+        }
+      ],
+      "source": "PRD-7.pdf",
+      "trace_links": [
+        {
+          "edge_id": "edge_011",
+          "source": "REQ-001",
+          "source_type": "detected_requirement",
+          "target": "GDPR:2016/679",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 5
+        },
+        {
+          "edge_id": "edge_012",
+          "source": "REQ-001",
+          "source_type": "detected_requirement",
+          "target": "CCPA:CA-CIV-1798.100",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 5
+        },
+        {
+          "edge_id": "edge_013",
+          "source": "REQ-002",
+          "source_type": "detected_requirement",
+          "target": "GDPR:2016/679",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 5
+        },
+        {
+          "edge_id": "edge_014",
+          "source": "REQ-002",
+          "source_type": "detected_requirement",
+          "target": "CCPA:CA-CIV-1798.100",
+          "target_type": "compliance_standard",
+          "relationship": "REQUIRES_COMPLIANCE",
+          "relationship_type": "rule_based",
+          "confidence": 0.7,
+          "page": 5
+        }
+      ]
+    },
+    {
+      "chunk_id": "chunk_006",
+      "labels": [
+        "ACCEPTANCE_CRITERIA",
+        "SECURITY",
+        "PERFORMANCE",
+        "TECHNICAL"
+      ],
+      "page_number": 6,
+      "text": "Integration with Confluence/Jira/Notion (API-based).\n\n\u039f\n\n\u039f\n\nMulti-language support.\n\n\u039f\n\nExpansion of best practice templates and resources library.\n\n11. Stakeholders & Approvals\n\n\u2022 Product Manager: Oversees the vision, roadmap, and success metrics.\n\n\u2022\n\n\u2022\n\n\u2022\n\n\u2022\n\nEngineering Lead: Responsible for technical feasibility, architecture, and code quality.\nData Science/Al Lead: Oversees model training, evaluation, and updates.\nDesign Lead: Responsible for UX/UI, user flow, and overall brand consistency.\n\nMarketing & Growth: Plans go-to-market strategies and user acquisition campaigns.\n\n12. Acceptance Criteria\n\n1. Functional\n\n\u039f\n\n\u039f\n\nUsers can successfully upload/paste PRDs and receive an Al-generated grade\nand feedback.\n\nSystem provides at least three actionable suggestions per PRD upload.\n\n2. Usability\n\n\u039f\n\nThe reviewer tool is intuitive, with minimal friction in the upload and review\nprocess.\n\n\u039f\n\nFeedback format is clear and easy to understand, prompting users to make\nimprovements.\n\n3.\n\nPerformance\n\n\u039f\n\n\u039f\n\nResponse time under 10 seconds for documents under 10 pages.\nSystem handles 100 concurrent users without degradation.\n\n4. Security\n\n\u039f\n\n\u039f\n\nAll data transmission is over HTTPS.\n\nUser content can be fully deleted upon request.\n\n13. Open Questions",
+      "confidence": 0.9896171490351359,
+      "text_anchor": {
+        "start": 7816,
+        "end": 9037
+      },
+      "bounding_box": {
+        "x_min": 0.23435722291469574,
+        "y_min": 0.09318681061267853,
+        "x_max": 0.6473265290260315,
+        "y_max": 0.1063736230134964
+      },
+      "detected_requirements": [
+        {
+          "id": "REQ-001",
+          "text": "\u2022 Product Manager: Oversees the vision, roadmap, and success metrics.",
+          "type": "BULLET_POINT",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.1473265141248703,
+            "y_min": 0.24835164844989777,
+            "x_max": 0.7480090856552124,
+            "y_max": 0.2610988914966583
+          }
+        },
+        {
+          "id": "REQ-002",
+          "text": "Engineering Lead: Responsible for technical feasibility, architecture, and code quality.",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17633675038814545,
+            "y_min": 0.2663736343383789,
+            "x_max": 0.8612059354782104,
+            "y_max": 0.280439555644989
+          }
+        },
+        {
+          "id": "REQ-003",
+          "text": "Design Lead: Responsible for UX/UI, user flow, and overall brand consistency.",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.1769055724143982,
+            "y_min": 0.3032967150211334,
+            "x_max": 0.8009101152420044,
+            "y_max": 0.3169230818748474
+          }
+        },
+        {
+          "id": "REQ-004",
+          "text": "Marketing & Growth: Plans go-to-market strategies and user acquisition campaigns.",
+          "type": "SECTION_HEADER",
+          "confidence": 0.75,
+          "bounding_box": {
+            "x_min": 0.17519909143447876,
+            "y_min": 0.3217582404613495,
+            "x_max": 0.8515358567237854,
+            "y_max": 0.3353846073150635
+          }
+        },
+        {
+          "id": "REQ-005",
+          "text": "System provides at least three actionable suggestions per PRD upload.",
+          "type": "ACTION_VERB",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.23549488186836243,
+            "y_min": 0.5134065747261047,
+            "x_max": 0.8009101152420044,
+            "y_max": 0.5270329713821411
+          }
+        },
+        {
+          "id": "REQ-006",
+          "text": "System handles 100 concurrent users without degradation.",
+          "type": "ACTION_VERB",
+          "confidence": 0.7,
+          "bounding_box": {
+            "x_min": 0.23549488186836243,
+            "y_min": 0.6791208982467651,
+            "x_max": 0.7548350691795349,
+            "y_max": 0.7103296518325806
+          }
+        }
+      ],
+      "source": "PRD-7.pdf"
+    },
+    {
+      "chunk_id": "chunk_007",
+      "labels": [
+        "FUNCTIONAL_REQUIREMENT"
+      ],
+      "page_number": 7,
+      "text": "1. Pricing Model: Will the Al-based PRD Reviewer remain free or require a subscription\ntier for advanced features?\n2. Additional File Format Support: Do we need to support Google Docs import directly\nvia API?\n3. Industry-Specific Customizations: Do we plan to adapt the Al model for different\nindustries (e.g., healthcare, fintech)?\n4. Localization: Which languages should we prioritize next after English?\n\nConclusion\n\nThe Al-based PRD Reviewer at pmprompt.com aims to empower product teams by automating\nmuch of the PRD review process. With a focus on structure, clarity, and completeness, it will\nhelp users create higher-quality PRDs faster. By providing actionable feedback and continuous\niteration, pmprompt.com can solidify its position as a leading resource for product managers,\nentrepreneurs, and teams looking to streamline and elevate their product documentation\npractices.",
+      "confidence": 0.8440687629309568,
+      "text_anchor": {
+        "start": 9037,
+        "end": 9921
+      },
+      "bounding_box": {
+        "x_min": 0.1461888551712036,
+        "y_min": 0.09318681061267853,
+        "x_max": 0.8549488186836243,
+        "y_max": 0.21714285016059875
+      },
+      "detected_requirements": [
+        {
+          "id": "REQ-001",
+          "text": "Pricing Model: Will the Al-based PRD Reviewer remain free or require a subscription tier for advanced features?",
+          "type": "MODAL_VERB",
+          "confidence": 0.85,
+          "bounding_box": {
+            "x_min": 0.1484641581773758,
+            "y_min": 0.09318681061267853,
+            "x_max": 0.8549488186836243,
+            "y_max": 0.12219779938459396
+          }
+        },
+        {
+          "id": "REQ-002",
+          "text": "Localization: Which languages should we prioritize next after English?",
+          "type": "MODAL_VERB",
+          "confidence": 0.85,
+          "bounding_box": {
+            "x_min": 0.1461888551712036,
+            "y_min": 0.20307692885398865,
+            "x_max": 0.7411831617355347,
+            "y_max": 0.21714285016059875
+          }
+        },
+        {
+          "id": "REQ-003",
+          "text": "With a focus on structure, clarity, and completeness, it will help users create higher-quality PRDs faster.",
+          "type": "MODAL_VERB",
+          "confidence": 0.85,
+          "bounding_box": {
+            "x_min": 0.11717861145734787,
+            "y_min": 0.3221977949142456,
+            "x_max": 0.8697383403778076,
+            "y_max": 0.42681318521499634
+          }
+        }
+      ],
+      "source": "PRD-7.pdf"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "edge_001",
+      "source": "REQ-001",
+      "source_type": "detected_requirement",
+      "target": "GDPR:2016/679",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_002",
+      "source": "REQ-001",
+      "source_type": "detected_requirement",
+      "target": "CCPA:CA-CIV-1798.100",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_003",
+      "source": "REQ-002",
+      "source_type": "detected_requirement",
+      "target": "GDPR:2016/679",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_004",
+      "source": "REQ-002",
+      "source_type": "detected_requirement",
+      "target": "CCPA:CA-CIV-1798.100",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_005",
+      "source": "REQ-003",
+      "source_type": "detected_requirement",
+      "target": "GDPR:2016/679",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_006",
+      "source": "REQ-003",
+      "source_type": "detected_requirement",
+      "target": "CCPA:CA-CIV-1798.100",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_007",
+      "source": "REQ-004",
+      "source_type": "detected_requirement",
+      "target": "GDPR:2016/679",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_008",
+      "source": "REQ-004",
+      "source_type": "detected_requirement",
+      "target": "CCPA:CA-CIV-1798.100",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_009",
+      "source": "REQ-005",
+      "source_type": "detected_requirement",
+      "target": "GDPR:2016/679",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_010",
+      "source": "REQ-005",
+      "source_type": "detected_requirement",
+      "target": "CCPA:CA-CIV-1798.100",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 4
+    },
+    {
+      "edge_id": "edge_011",
+      "source": "REQ-001",
+      "source_type": "detected_requirement",
+      "target": "GDPR:2016/679",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 5
+    },
+    {
+      "edge_id": "edge_012",
+      "source": "REQ-001",
+      "source_type": "detected_requirement",
+      "target": "CCPA:CA-CIV-1798.100",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 5
+    },
+    {
+      "edge_id": "edge_013",
+      "source": "REQ-002",
+      "source_type": "detected_requirement",
+      "target": "GDPR:2016/679",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 5
+    },
+    {
+      "edge_id": "edge_014",
+      "source": "REQ-002",
+      "source_type": "detected_requirement",
+      "target": "CCPA:CA-CIV-1798.100",
+      "target_type": "compliance_standard",
+      "relationship": "REQUIRES_COMPLIANCE",
+      "relationship_type": "rule_based",
+      "confidence": 0.7,
+      "page": 5
+    }
+  ],
+  "summary": {
+    "total_pages": 7,
+    "total_chunks": 7,
+    "total_detected_entities": 47,
+    "total_detected_requirements": 43,
+    "total_detected_compliance": 4,
+    "text_length": 9921,
+    "has_entities": true,
+    "compliance_standards_found": 4,
+    "requirements_found": 43,
+    "kg_ready": true,
+    "total_edges": 14
+  },
+  "processor": {
+    "name": "projects/poc-genai-hacks/locations/us/processors/e7f52140009fdda2",
+    "project_id": "poc-genai-hacks",
+    "location": "us",
+    "processor_id": "e7f52140009fdda2",
+    "endpoint": "https://us-documentai.googleapis.com/v1/projects/poc-genai-hacks/locations/us/processors/e7f52140009fdda2:process"
+  }
+}
