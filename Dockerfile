@@ -32,16 +32,17 @@ ENV RAG_LOCATION=europe-west3
 ENV GEMINI_LOCATION=us-central1
 ENV GEMINI_MODEL=gemini-2.0-flash-001
 ENV DLP_LOCATION=us
-ENV PORT=8080
 
 # Context expansion configuration (NEW!)
 ENV ENABLE_CONTEXT_EXPANSION=true
 ENV MAX_EXPANSION_SENTENCES=3
 ENV MAX_EXPANSION_CHARS=300
 
+# Note: PORT is set by Cloud Run automatically (defaults to 8080)
 # Expose port
 EXPOSE 8080
 
 # Run the FastAPI server
-CMD exec uvicorn api_server_modular:app --host 0.0.0.0 --port ${PORT}
+# Cloud Run sets PORT env var automatically, default to 8080 if not set
+CMD exec uvicorn api_server_modular:app --host 0.0.0.0 --port ${PORT:-8080}
 
