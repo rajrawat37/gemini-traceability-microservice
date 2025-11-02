@@ -148,7 +148,6 @@ Set these environment variables for production:
 
 - `PROJECT_ID` - **Google Cloud project ID (STRING, not project number!)**
   - ✅ Example: `"poc-genai-hacks"` or `"my-project-123"`
-  - ❌ NOT the numeric project number like `"401328495550"`
   - 🔍 Find it: Go to [Google Cloud Console](https://console.cloud.google.com) → Project dropdown → "ID" column
 - `LOCATION` - Document AI processor location (default: "us")
 - `PROCESSOR_ID` - Document AI processor ID
