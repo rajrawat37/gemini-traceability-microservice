@@ -158,41 +158,6 @@ Set these environment variables for production:
 - `GEMINI_LOCATION` - Gemini model location
 - `USE_MOCK_DOCAI` - Set to "true" to use mock Document AI data (default: "false")
 
-## 🔧 Document AI Setup
-
-To use the actual Document AI API:
-
-1. **Enable Document AI API** in your Google Cloud project
-2. **Create a Document AI processor** in the Google Cloud Console
-3. **Set environment variables:**
-   ```bash
-   # ⚠️ IMPORTANT: Use PROJECT ID (string), NOT project number (numeric)
-   export PROJECT_ID="poc-genai-hacks"  # Your project ID (string like "my-project")
-   export LOCATION="us"  # Processor location
-   export PROCESSOR_ID="e7f52140009fdda2"  # Your processor ID
-   ```
-
-4. **Document AI Endpoint:**
-   ```
-   # Note: Document AI endpoints can use project number OR project ID
-   https://us-documentai.googleapis.com/v1/projects/poc-genai-hacks/locations/us/processors/e7f52140009fdda2:process
-
-   # However, DLP API REQUIRES project ID (string), NOT project number
-   ```
-
-5. **For testing with mock data:**
-   ```bash
-   # Use mock data for testing
-   curl -X POST "http://localhost:8080/extract-document?use_mock=true" \
-        -F "file=@mockData/documents/PRD-3.pdf"
-   ```
-
-
-**✅ Correct (Project ID):**
-```bash
-export PROJECT_ID="poc-genai-hacks"  # This is a project ID
-```
-
 ## 📚 API Documentation
 
 Visit `http://localhost:8080/docs` for interactive API documentation.
